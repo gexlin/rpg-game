@@ -1,0 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package by_software.game.gameobject;
+
+import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glVertex2f;
+import org.lwjgl.util.vector.Vector2f;
+
+/**
+ *
+ * @author Nigel
+ */
+public class DEBUG_Line
+{
+    private Vector2f startPos;
+    private Vector2f endPos;
+    
+    public DEBUG_Line(Vector2f startPos, Vector2f endPos)
+    {
+    this.startPos = startPos;
+    this.endPos = endPos;
+    }
+    public void render()
+    {
+        glColor3f(1f,1f,1f);
+        glBegin(GL_LINES);
+        {
+            glVertex2f(startPos.x, startPos.y  );
+            glVertex2f(endPos.x,  endPos.y  );
+        }
+        glEnd();
+    }
+    public void set(Vector2f startPos, Vector2f endPos)
+    {
+        System.out.print( startPos + "  " + endPos);
+        this.startPos = startPos;
+        this.endPos = endPos;
+    }
+}
