@@ -6,10 +6,6 @@
 
 package by_software.engine;
 
-import static by_software.engine.Sprite.PLAYER;
-import java.util.HashMap;
-import org.lwjgl.util.vector.Vector2f;
-
 /**
  *
  * @author Nigel
@@ -18,18 +14,27 @@ import org.lwjgl.util.vector.Vector2f;
 
 public class Frame
 {
-    public final static  HashMap<String,Frame[]> PLAYER = new HashMap<>(5,1f);
+  //  public final static  HashMap<String,Frame[]> PLAYER = new HashMap<>(5,1f);
      
-    static
-    {
-       PLAYER.put("helm",           new Frame[]{new Frame(250,Sprite.PLAYER.get("helm"))});
-       PLAYER.put("body",           new Frame[]{new Frame(250,Sprite.PLAYER.get("body"))} );
-       PLAYER.put("poldren-left",   new Frame[]{new Frame(250,Sprite.PLAYER.get("poldren-left"))} );
-       PLAYER.put("poldren-right",  new Frame[]{new Frame(400,Sprite.PLAYER.get("poldren-right"))} );
-       PLAYER.put("arm-left",       new Frame[]{new Frame(400,Sprite.PLAYER.get("arm-left"))});
-       PLAYER.put("arm-right",      new Frame[]{new Frame(400,Sprite.PLAYER.get("arm-right"))} );
+    
+   public final static Frame[] PLAYER_HEAD             =    frameArray(250,Sprite.PLAYER_HEAD);
+   public final static Frame[] PLAYER_BODY             =    frameArray(250,Sprite.PLAYER_BODY );
+   public final static Frame[] PLAYER_PAULDRON_LEFT    =    frameArray(250,Sprite.PLAYER_PAULDRON_LEFT );
+   public final static Frame[] PLAYER_PAULDRON_RIGHT   =    frameArray(250,Sprite.PLAYER_PAULDRON_RIGHT );
+   public final static Frame[] PLAYER_ARM_LEFT         =    frameArray(250,Sprite.PLAYER_ARM_LEFT );
+   public final static Frame[] PLAYER_ARM_RIGHT        =    frameArray(250,Sprite.PLAYER_ARM_RIGHT );
 
-    }
+           
+    /*static
+    {
+       PLAYER.put("helm",           frameArray(250,Sprite.PLAYER_HEAD));
+       PLAYER.put("body",           frameArray(250,Sprite.PLAYER_BODY );
+       PLAYER.put("poldren-left",   frameArray(250,Sprite.PLAYER.get("poldren-left")) );
+       PLAYER.put("poldren-right",  frameArray(400,Sprite.PLAYER.get("poldren-right")) );
+       PLAYER.put("arm-left",       frameArray(400,Sprite.PLAYER.get("arm-left")));
+       PLAYER.put("arm-right",      frameArray(400,Sprite.PLAYER.get("arm-right")) );
+
+    }*/
     
     private int length;
     private Sprite sprite;
@@ -41,6 +46,33 @@ public class Frame
         this.length = lenghtMileSec * 1000;
         this.sprite = sprite;
     }
+    
+    public static Frame[] frameArray(int[] lenghtMileSec, Sprite[] sprites)
+    {
+        
+        Frame[] frames = new Frame[sprites.length];
+        
+        for(int i = 0; i < sprites.length; i++)   
+        { 
+            int j = i % lenghtMileSec.length;
+            frames[i] = new Frame(lenghtMileSec[j], sprites[i]);
+        }
+        return frames;
+    }
+    
+    
+    public static Frame[] frameArray(int lenghtMileSec, Sprite[] sprites)
+    {
+        
+        Frame[] frames = new Frame[sprites.length];
+        
+        for(int i = 0; i < sprites.length; i++)   
+        { 
+            frames[i] = new Frame(lenghtMileSec, sprites[i]);
+        }
+        return frames;
+    }
+    
     
     public boolean render()
     {

@@ -6,7 +6,8 @@
 
 package by_software.game.gameobject.mob.body;
 
-import by_software.engine.Animation;
+import by_software.engine.AnimationSet;
+import by_software.engine.AnimationSet.AnimationType;
 import by_software.game.Util;
 import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
@@ -20,16 +21,7 @@ import org.lwjgl.util.vector.Vector2f;
  * @author Nigel
  */
 public class BodyPart
-{
-    
-    public static BodyPart head = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,0),Animation.PLAYER.get("helm"));
-    public static BodyPart body = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,0),Animation.PLAYER.get("chestPlate"));
-    
-    static
-    {
-        head.addChildPart(body);
-    }
-    
+{    
     private Vector2f pos;
     private Vector2f offsetPos;
     
@@ -37,27 +29,23 @@ public class BodyPart
     private Vector2f offsetDirection;
     private ArrayList<BodyPart> childParts;
     private ArrayList<Vector2f> childOffsets;
-    private Animation[] animations;
+    private AnimationSet animations;
+    private AnimationType currentAnimation = AnimationType.IDLE;
     
-    
-    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, Animation[] animations)
-    {
-        this.pos = pos;
-        this.offsetPos = offsetPos;
-        this.direction = direction;
-        this.offsetDirection = new Vector2f(0,1);
-        this.animations = animations;
+    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations)
+    {   
+        this(pos,offsetPos,direction,animations);
         childParts = body;
     }
-    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction,  Animation[] animations)
+    
+    
+    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction,  AnimationSet animations)
     {
-        this.pos = pos;
-        this.offsetPos = offsetPos;
-        this.direction = direction;
-        this.offsetDirection = new Vector2f(0,1);
+        
+        this(pos,offsetPos,direction);
         this.animations = animations;
-        childParts = null;
     }
+    
     public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction)
     {
         this.pos = pos;
@@ -92,12 +80,18 @@ public class BodyPart
                     childPart.render();   
                 }
             }
-            animations[0].render();
+            animations.render(currentAnimation);
         }
         glPopMatrix();
         
     }
 
+    public void setCurrentAnimation(AnimationType currentAnimation){this.currentAnimation = currentAnimation;}
+
+    
+    
+    public AnimationSet getAnimations() {return animations;}
+    public AnimationType getCurrentAnimation(){return currentAnimation;}
     public Vector2f getPos()                     { return pos; }
     public Vector2f getOffsetPos()               { return offsetPos; }
     public Vector2f getDirection()               { return direction;}

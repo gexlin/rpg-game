@@ -6,7 +6,7 @@
 
 package by_software.game.gameobject.mob.body;
 
-import by_software.engine.Animation;
+import by_software.engine.AnimationSet;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import java.util.ArrayList;
 import org.lwjgl.util.vector.Vector2f;
@@ -20,11 +20,11 @@ public class Arm extends BodyPart
 
     private Weapon weapon;
     
-    public Arm(Vector2f pos, Vector2f offsetPos, Vector2f direction, ArrayList<BodyPart> body, Animation[] animations)
+    public Arm(Vector2f pos, Vector2f offsetPos, Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations)
     {
         super(pos, offsetPos, direction, body, animations);
     }
-    public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction,  Animation[] animations)
+    public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction,  AnimationSet  animations)
     {
       super(pos, offsetPos, direction, animations);
     }

@@ -26,20 +26,29 @@ import org.newdawn.slick.opengl.TextureLoader;
  */
 public class Sprite
 {
-   public final static  HashMap<String,Sprite> PLAYER = new HashMap<>(5,1f);
-   
-   static
+   private static String dirPath = "C:/Users/Nigel/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
+      
+   public final static Sprite[] PLAYER_HEAD             = {new Sprite( new Vector2f(32,36),dirPath + "player/helm.png " ) };
+   public final static Sprite[] PLAYER_BODY             = {new Sprite( new Vector2f(50,40),dirPath + "player/chestplate.png" )};
+   public final static Sprite[] PLAYER_PAULDRON_LEFT    = {new Sprite( new Vector2f(27,35),dirPath + "player/poldren-left.png" )};
+   public final static Sprite[] PLAYER_PAULDRON_RIGHT   = {new Sprite( new Vector2f(27,35),dirPath + "player/poldren-right.png")};
+   public final static Sprite[] PLAYER_ARM_LEFT         = {new Sprite( new Vector2f(24,40),dirPath + "player/arm-left.png" ) };
+   public final static Sprite[] PLAYER_ARM_RIGHT        = {new Sprite( new Vector2f(24,40),dirPath + "player/arm-right.png" ) };
+
+           
+           
+ /*  static
    {
-       String dirPath = "C:/Users/Nigel/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
+      
        PLAYER.put("helm", new Sprite( new Vector2f(32,36),dirPath + "player/helm.png " ) );
        PLAYER.put("body", new Sprite( new Vector2f(50,40),dirPath + "player/chestplate.png" ) );
        PLAYER.put("poldren-left", new Sprite( new Vector2f(27,35),dirPath + "player/poldren-left.png" ) );
        PLAYER.put("poldren-right", new Sprite( new Vector2f(27,35),dirPath + "player/poldren-right.png") );
        PLAYER.put("arm-left", new Sprite( new Vector2f(24,40),dirPath + "player/arm-left.png" ) );
        PLAYER.put("arm-right", new Sprite( new Vector2f(24,40),dirPath + "player/arm-right.png" ) );
-        // PLAYER.put("arm-right", new Sprite( new Vector2f(512,5z),dirPath + "player/arm-right.png" ) );
-
-   }
+       //PLAYER.put("arm-right", new Sprite( new Vector2f(512,5z),dirPath + "player/arm-right.png" ) );
+       
+   }*/
  
    
    

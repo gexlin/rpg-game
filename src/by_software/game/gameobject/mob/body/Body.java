@@ -7,7 +7,7 @@
 package by_software.game.gameobject.mob.body;
 
 import by_software.engine.Animation;
-import java.util.ArrayList;
+import by_software.engine.AnimationSet;
 import org.lwjgl.util.vector.Vector2f;
 
 /**
@@ -21,22 +21,22 @@ import org.lwjgl.util.vector.Vector2f;
 public class Body
 {
     
-    public static BodyPart head1 = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),Animation.PLAYER.get("helm"));
-    public static BodyPart body = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),Animation.PLAYER.get("body"));
-    public static BodyPart rightArm = new BodyPart(new Vector2f(0,0), new Vector2f(30,10),new Vector2f(0,1),Animation.PLAYER.get("arm-right"));
-    public static BodyPart leftArm = new BodyPart(new Vector2f(0,0), new Vector2f(-30,10),new Vector2f(0,1),Animation.PLAYER.get("arm-left"));
-    public static BodyPart poldrenRight = new BodyPart(new Vector2f(0,0), new Vector2f(25,00),new Vector2f(0,1),Animation.PLAYER.get("poldren-right"));
-    public static BodyPart poldrenLeft = new BodyPart(new Vector2f(0,0), new Vector2f(-25,00),new Vector2f(0,1),Animation.PLAYER.get("poldren-left"));
+    public static BodyPart PLAYER_HEAD = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AnimationSet.PLAYER_HEAD);
+    public static BodyPart PLAYER_CHEST = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AnimationSet.PLAYER_BODY);
+    public static BodyPart PLAYER_ARM_LEFT = new BodyPart(new Vector2f(0,0), new Vector2f(-8,12),new Vector2f(0,1),AnimationSet.PLAYER_ARM_LEFT);
+    public static BodyPart PLAYER_ARM_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(8,12),new Vector2f(0,1),AnimationSet.PLAYER_ARM_RIGHT);
+    public static BodyPart PLAYER_PAULDRON_LEFT = new BodyPart(new Vector2f(0,0), new Vector2f(-26,00),new Vector2f(0,1),AnimationSet.PLAYER_PAULDRON_LEFT);
+    public static BodyPart PLAYER_PAULDRON_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(26,00),new Vector2f(0,1),AnimationSet.PLAYER_PAULDRON_RIGHT);
     
-    public static Body PLAYERBODY;
+    public static Body PLAYER_BODY;
     static
     {
-        head1.addChildPart(body);
-        body.addChildPart(rightArm);
-        body.addChildPart(leftArm);
-        head1.addChildPart(poldrenRight);
-        head1.addChildPart(poldrenLeft);
-        PLAYERBODY = new Body(head1);
+        PLAYER_HEAD.addChildPart(PLAYER_CHEST);
+        PLAYER_HEAD.addChildPart(PLAYER_PAULDRON_LEFT);
+        PLAYER_HEAD.addChildPart(PLAYER_PAULDRON_RIGHT);
+        PLAYER_PAULDRON_RIGHT.addChildPart(PLAYER_ARM_RIGHT);
+        PLAYER_PAULDRON_LEFT.addChildPart(PLAYER_ARM_LEFT);
+        PLAYER_BODY = new Body(PLAYER_HEAD);
     
     
     }

@@ -169,8 +169,8 @@ public final class Equipment
         //WEAPONS / SHIELDS
         LEFT_HAND_1(new Vector2f(-17,20)),
         LEFT_HAND_2(new Vector2f(-17,20)),
-        RIGHT_HAND_1(new Vector2f(17,20)),
-        RIGHT_HAND_2(new Vector2f(17,20));;
+        RIGHT_HAND_1(new Vector2f(30,40)),
+        RIGHT_HAND_2(new Vector2f(30,40));;
 
        
          private Vector2f renderOffset;

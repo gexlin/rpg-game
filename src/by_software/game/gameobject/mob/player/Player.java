@@ -44,7 +44,7 @@ public class Player extends Mob
     public Player(Vector2f pos,int inventorySize)
     {  
         super("Player", Faction.PLAYERS, pos,new Vector2f(SIZE,SIZE), color,GameObjectType.PLAYER,0,true, inventorySize, ATTACK_DELAY,new Fist());
-        this.body = Body.PLAYERBODY;
+        this.body = Body.PLAYER_BODY;
     }
     
     public Player(float x, float y,int inventorySize)

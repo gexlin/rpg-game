@@ -6,7 +6,7 @@
 
 package by_software.engine;
 
-import java.util.HashMap;
+import static by_software.engine.Frame.frameArray;
 
 /**
  *
@@ -14,7 +14,21 @@ import java.util.HashMap;
  */
 public class Animation
 {
-   public final static  HashMap<String,Animation[]> PLAYER = new HashMap<>(5,1f);
+    
+    
+    
+    
+    
+    
+    
+   public final static Animation PLAYER_HEAD             = new Animation(Frame.PLAYER_HEAD);
+   public final static Animation PLAYER_BODY             = new Animation(Frame.PLAYER_BODY );
+   public final static Animation PLAYER_PAULDRON_LEFT    = new Animation(Frame.PLAYER_PAULDRON_LEFT );
+   public final static Animation PLAYER_PAULDRON_RIGHT   = new Animation(Frame.PLAYER_PAULDRON_RIGHT );
+   public final static Animation PLAYER_ARM_LEFT         = new Animation(Frame.PLAYER_ARM_LEFT );
+   public final static Animation PLAYER_ARM_RIGHT        = new Animation(Frame.PLAYER_ARM_RIGHT );
+   
+  /* public final static  HashMap<String,Animation[]> PLAYER = new HashMap<>(5,1f);
     static
     {
        PLAYER.put("helm",           new Animation[]{new Animation(Frame.PLAYER.get("helm"))});
@@ -24,7 +38,7 @@ public class Animation
        PLAYER.put("arm-left",       new Animation[]{new Animation(Frame.PLAYER.get("arm-left"))});
        PLAYER.put("arm-right",      new Animation[]{new Animation(Frame.PLAYER.get("arm-right"))} );
 
-    }
+    }*/
     
     
     
@@ -55,4 +69,6 @@ public class Animation
           currentFrame %= frames.length;
       } 
     }
+    
+
 }
