@@ -31,13 +31,21 @@ public abstract class GameObject
         this.pos = pos;
         this.size = size;
         this.type = type;
-        this.sprite = new Sprite(color.x,color.y,color.z,size.x,size.y);
+        this.sprite = new Sprite(color,size);
+    }
+    
+    public GameObject(String name,Vector2f pos, Vector2f size, Vector3f color , GameObjectType type, String path)
+    {
+        this.name = name;
+        this.pos = pos;
+        this.size = size;
+        this.type = type;
+        this.sprite = new Sprite(color,size,path);
     }
    
     public GameObject(String name,float x, float y, float sX, float sY, float r, float g, float b,GameObjectType type)
     {
         this(name,new Vector2f(x,y), new Vector2f(sX,sY),new Vector3f(r,g,b),type);
-
     }
     public void update()
     {

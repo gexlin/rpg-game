@@ -18,20 +18,12 @@ import org.lwjgl.util.vector.Vector2f;
  * @author Nigel
  */
 
-public class StabAttack implements Attack
+public class StabAttack extends Attack
 {
 
-    private Vector2f startPos;
-    private Vector2f endPos;
-            
-    private Weapon weapon;
-    private float attackDelay;
     public StabAttack(Weapon weapon)
     {
-        this.weapon = weapon;
-        startPos = weapon.getPos();
-        attackDelay = 200;
-            
+        super(weapon,200);    
     }
     
     @Override
@@ -43,16 +35,13 @@ public class StabAttack implements Attack
             
             startPos = weapon.getPos();
             endPos = new Vector2f(attacker.getDirection());
-            System.out.println(weapon +" "+ weapon.getAttackRange());
             endPos.scale(weapon.getAttackRange());
             
             Vector2f.add(startPos, endPos, endPos);
             
-            System.out.println("ATTACK");
-            
             ArrayList<GameObject>  rayRes = getGame().rayCast(startPos, endPos);
             ArrayList<Mob> enemys = new ArrayList();
-            //direction.normalise();
+            
             for(GameObject go : rayRes)
             {
                 if(attacker.isEnemy(go))

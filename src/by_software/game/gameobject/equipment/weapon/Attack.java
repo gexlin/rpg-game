@@ -7,13 +7,28 @@
 package by_software.game.gameobject.equipment.weapon;
 
 import by_software.game.gameobject.mob.Mob;
+import org.lwjgl.util.vector.Vector2f;
 
 /**
  *
  * @author Nigel
  */
-public interface Attack
+public abstract class Attack
 {
-    public boolean attack(Mob attacker);
-   
+    protected Vector2f startPos;
+    protected Vector2f endPos;
+            
+    protected Weapon weapon;
+    protected float attackDelay;
+    
+    public Attack(Weapon weapon, float attackDelay)
+    {
+        this.weapon = weapon;
+        startPos = weapon.getPos();
+        endPos = new Vector2f();
+        this.attackDelay = attackDelay;
+    }
+
+    public abstract boolean attack(Mob attacker);
+
 }

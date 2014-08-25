@@ -36,9 +36,9 @@ public abstract class Weapon extends EquippableItem
     private Slots equipedIn;
     
     public Weapon(String name, Vector2f pos, Vector2f size, Vector3f color,float attackRange,
-                               float stabDamage, float slashDamage, float bluntDamage, float weight,float attackDelayMod, float attackSpeedMod)
+                               float stabDamage, float slashDamage, float bluntDamage, float weight,float attackDelayMod, float attackSpeedMod, String path)
     { //TODO change slot
-        super(name, Slots.RIGHT_HAND_1, pos, size, color);
+        super(name, Slots.RIGHT_HAND_1, pos, size, color, path);
         this.attacks = new  Attack[3];
         this.stabDamage = stabDamage;
         this.slashDamage = slashDamage;

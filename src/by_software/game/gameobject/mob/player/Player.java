@@ -6,18 +6,26 @@
 
 package by_software.game.gameobject.mob.player;
 
+import by_software.engine.Animation;
 import by_software.engine.GameObject;
 import by_software.engine.GameObjectType;
+import by_software.game.Util;
 import by_software.game.gameobject.Equipment.Slots;
 import by_software.game.gameobject.Item;
 import by_software.game.gameobject.equipment.weapon.Fist;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Faction;
 import by_software.game.gameobject.mob.Mob;
+import by_software.game.gameobject.mob.body.Body;
+import by_software.game.gameobject.mob.body.BodyPart;
 import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glRotated;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -31,15 +39,12 @@ public class Player extends Mob
     public static final int ATTACK_DELAY = 500;
     public static Vector3f color =  new Vector3f(.3f,.7f,.6f);
     private static float attackRange = 30; 
+    private Body body ;
 
-   
-   // private Inventory inventory;
-    
     public Player(Vector2f pos,int inventorySize)
-    {
-        
+    {  
         super("Player", Faction.PLAYERS, pos,new Vector2f(SIZE,SIZE), color,GameObjectType.PLAYER,0,true, inventorySize, ATTACK_DELAY,new Fist());
-    
+        this.body = Body.PLAYERBODY;
     }
     
     public Player(float x, float y,int inventorySize)
@@ -56,10 +61,10 @@ public class Player extends Mob
     {
         float x = 0,y = 0;
         int mx = Mouse.getX(), my = Mouse.getY();
-        System.out.println(mx + ":mx before  my:"  + my);
+        //System.out.println(mx + ":mx before  my:"  + my);
         mx -= Display.getWidth()/2;
         my -= Display.getHeight()/2;
-         System.out.println(mx + ":mx  after  my:"  + my);
+        //System.out.println(mx + ":mx  after  my:"  + my);
         if(Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
         {y++;}
         if(Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
@@ -112,36 +117,24 @@ public class Player extends Mob
     
     @Override
     protected boolean attack()
-    {
-        
+    { 
       return equipment.attackRight();
-           // System.out.println("ATTACK");
-          //  direction.scale(this.getAttackRange());
-           /* Vector2f endPos = new Vector2f(direction);
-            endPos.scale(this.getAttackRange());
-            Vector2f.add(pos, endPos, endPos);
-            */
-            
-           
-           // ArrayList<GameObject>  rayRes = getGame().rayCast(pos, endPos);
-           // ArrayList<Mob> enemys = new ArrayList();
-           // direction.normalise();
-            /*for(GameObject go : rayRes)
-            {
-                if(go.getType() == GameObjectType.ENEMY)
-                {
-                    enemys.add((Mob)go);
-                }
-            }*/
-            
-          //  for(Mob mob : enemys)
-            //{
-            ////    mob.damage(this.getStrength());  
-           // }
-            
-            
-           
-       
     }
-
+    @Override
+    public void render()
+    {
+        glPushMatrix();
+        {
+            
+            
+            glTranslatef(pos.x,pos.y,0);
+            glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
+            
+          //  getFrame().render();
+            equipment.render();
+            body.render();
+        }
+        glPopMatrix();
+    
+    }
 }

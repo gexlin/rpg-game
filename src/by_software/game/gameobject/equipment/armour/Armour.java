@@ -20,7 +20,7 @@ public class Armour extends EquippableItem
 
     public Armour(String name, Slots slot, Vector2f pos, Vector2f size, Vector3f color)
     {
-        super(name, slot, pos, size, color);
+        super(name, slot, pos, size, color, "");
     }
     
 }

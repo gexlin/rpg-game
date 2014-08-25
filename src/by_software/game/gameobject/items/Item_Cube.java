@@ -23,7 +23,7 @@ public class Item_Cube extends Item
 
     public Item_Cube(Vector2f pos, Vector3f color)
     {
-        super(" Cube", pos, new Vector2f(SIZE, SIZE), color);
+        super(" Cube", pos, new Vector2f(SIZE, SIZE), color,"");
     
     }
    

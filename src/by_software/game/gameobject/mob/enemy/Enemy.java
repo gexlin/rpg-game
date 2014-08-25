@@ -8,6 +8,7 @@ package by_software.game.gameobject.mob.enemy;
 
 import by_software.engine.GameObject;
 import by_software.engine.GameObjectType;
+import by_software.engine.Time;
 import by_software.game.Util;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Faction;
@@ -89,7 +90,17 @@ public class Enemy extends Mob
         }
         
     }
-    
+    @Override
+     protected void move(Vector2f move)
+    {
+        if(!attacking)
+        {
+            move.normalise();
+            direction.set(move);
+            move.scale((float)(getSpeed() * Time.getDelta()));
+            Vector2f.add(move, pos, pos);
+        }
+    }
     protected void idle()
     {
     

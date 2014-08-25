@@ -6,6 +6,7 @@
 
 package by_software.game.gameobject.mob;
 
+import by_software.game.gameobject.mob.body.Body;
 import by_software.engine.Delay;
 import by_software.engine.GameObject;
 import static by_software.engine.GameObject.getGame;
@@ -43,7 +44,7 @@ public class Mob extends GameObject
     protected Equipment equipment;
     protected Weapon defaultWeapon;
     protected Faction faction;
-    
+    protected Body body;
     public Mob(String name, Faction faction, Vector2f pos, Vector2f size, Vector3f color, GameObjectType type,int xp, boolean levelAble, int inventorySize, int attackDelay, Weapon defaultWeapon)
     {
         
@@ -90,11 +91,7 @@ public class Mob extends GameObject
             setDirection(new Vector2f(x,y));
         }
     }
-    protected void setDirection(Vector2f dir)
-    {
-        dir.normalise();
-        this.direction = dir;
-    }
+ 
     protected void move(Vector2f move)
     {
         if(!attacking)
@@ -105,7 +102,11 @@ public class Mob extends GameObject
             Vector2f.add(move, pos, pos);
         }
     }
-    
+    protected void setDirection(Vector2f dir)
+    {
+        dir.normalise();
+        this.direction = dir;
+    }
     public boolean addItem(Item item)
     {
         return inventory.add(item);

@@ -16,9 +16,7 @@ import java.util.Random;
 public class RPGRandom extends Random
 {
   
-/* initialize state to random bits */
     private long[] state;
-    /* init should also reset this to 0 */
     private int index;
     
     public RPGRandom()

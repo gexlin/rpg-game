@@ -19,9 +19,9 @@ import org.lwjgl.util.vector.Vector3f;
 public abstract class Item extends GameObject
 {
 
-    public Item(String name, Vector2f pos, Vector2f size, Vector3f color)
+    public Item(String name, Vector2f pos, Vector2f size, Vector3f color, String path)
     {
-        super(name, pos, size, color,GameObjectType.ITEM);
+        super(name, pos, size, color,GameObjectType.ITEM,path);
         this.name = name;
         
     }

@@ -97,6 +97,7 @@ public class Main
         glOrtho(0,Display.getWidth(),0,Display.getHeight(),-1,1);
         glMatrixMode(GL_MODELVIEW);
         
+        
         glDisable(GL_DEPTH_TEST);
         
         glClearColor(0,0,0,1);
