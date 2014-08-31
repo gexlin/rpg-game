@@ -81,8 +81,8 @@ public class Player extends Mob
         {equipment.equip(Slots.RIGHT_HAND_1,(Weapon)inventory.get(0));}
         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
         {attack();}
-        setDirection(mx,my);
-        super.move(x,y);
+         setDirection(mx,my);
+        super.moveLocal(x,y);
         
     }
     /*private void move( float magX, float magY)

@@ -27,11 +27,13 @@ public class Body
     public static BodyPart PLAYER_ARM_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(8,12),new Vector2f(0,1),AnimationSet.PLAYER_ARM_RIGHT);
     public static BodyPart PLAYER_PAULDRON_LEFT = new BodyPart(new Vector2f(0,0), new Vector2f(-26,00),new Vector2f(0,1),AnimationSet.PLAYER_PAULDRON_LEFT);
     public static BodyPart PLAYER_PAULDRON_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(26,00),new Vector2f(0,1),AnimationSet.PLAYER_PAULDRON_RIGHT);
+    public static BodyPart PLAYER_LEGS = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AnimationSet.PLAYER_LEGS);
     
     public static Body PLAYER_BODY;
     static
     {
         PLAYER_HEAD.addChildPart(PLAYER_CHEST);
+        PLAYER_CHEST.addChildPart(PLAYER_LEGS);
         PLAYER_HEAD.addChildPart(PLAYER_PAULDRON_LEFT);
         PLAYER_HEAD.addChildPart(PLAYER_PAULDRON_RIGHT);
         PLAYER_PAULDRON_RIGHT.addChildPart(PLAYER_ARM_RIGHT);
@@ -51,5 +53,9 @@ public class Body
     public void render()
     {
         head.render();
+    }
+    public BodyPart getHead()
+    {
+        return this.head;
     }
 }

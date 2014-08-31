@@ -23,6 +23,7 @@ public class Frame
    public final static Frame[] PLAYER_PAULDRON_RIGHT   =    frameArray(250,Sprite.PLAYER_PAULDRON_RIGHT );
    public final static Frame[] PLAYER_ARM_LEFT         =    frameArray(250,Sprite.PLAYER_ARM_LEFT );
    public final static Frame[] PLAYER_ARM_RIGHT        =    frameArray(250,Sprite.PLAYER_ARM_RIGHT );
+   public final static Frame[] PLAYER_LEGS             =    frameArray(250,Sprite.PLAYER_LEGS );
 
            
     /*static
@@ -43,7 +44,7 @@ public class Frame
     
     public Frame(int lenghtMileSec, Sprite sprite)
     {
-        this.length = lenghtMileSec * 1000;
+        this.length = lenghtMileSec * 1000000;
         this.sprite = sprite;
     }
     
@@ -82,9 +83,10 @@ public class Frame
             frameEnd = Time.getTime() + length;
         }
         sprite.render();
-        
-       
-        if(frameEnd >= Time.getTime())
+      //  System.out.println("frame"   + frameEnd + "   "+ Time.getTime() +"  " + (frameEnd <= Time.getTime()));
+      
+      
+        if(frameEnd <= Time.getTime())
         {
             rendering = false;
             return true;

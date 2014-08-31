@@ -27,6 +27,7 @@ public class Animation
    public final static Animation PLAYER_PAULDRON_RIGHT   = new Animation(Frame.PLAYER_PAULDRON_RIGHT );
    public final static Animation PLAYER_ARM_LEFT         = new Animation(Frame.PLAYER_ARM_LEFT );
    public final static Animation PLAYER_ARM_RIGHT        = new Animation(Frame.PLAYER_ARM_RIGHT );
+   public final static Animation PLAYER_LEGS             = new Animation(Frame.PLAYER_LEGS );
    
   /* public final static  HashMap<String,Animation[]> PLAYER = new HashMap<>(5,1f);
     static
@@ -66,6 +67,7 @@ public class Animation
       if(temp.render())
       {
           currentFrame++;
+          System.out.println(currentFrame);
           currentFrame %= frames.length;
       } 
     }

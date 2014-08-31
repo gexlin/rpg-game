@@ -22,15 +22,17 @@ import org.lwjgl.util.vector.Vector2f;
  */
 public class BodyPart
 {    
-    private Vector2f pos;
-    private Vector2f offsetPos;
+    protected Vector2f pos;
+    protected Vector2f offsetPos;
+
+    protected Vector2f direction;
+    protected Vector2f offsetDirection;
     
-    private Vector2f direction;
-    private Vector2f offsetDirection;
-    private ArrayList<BodyPart> childParts;
-    private ArrayList<Vector2f> childOffsets;
-    private AnimationSet animations;
-    private AnimationType currentAnimation = AnimationType.IDLE;
+    protected ArrayList<BodyPart> childParts;
+    protected ArrayList<Vector2f> childOffsets;
+    protected ArrayList<Vector2f> childOffsetDirections;
+    protected AnimationSet animations;
+    protected AnimationType currentAnimation = AnimationType.IDLE;
     
     public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations)
     {   
@@ -61,9 +63,11 @@ public class BodyPart
         {
             childParts = new ArrayList<>();
             childOffsets = new ArrayList<>();
+            childOffsetDirections = new ArrayList<>();
         }
         childParts.add(part);
         childOffsets.add(part.getOffsetPos());
+        childOffsetDirections.add(part.getOffsetDirection());
     }
     
     public void render()
@@ -98,6 +102,18 @@ public class BodyPart
     public Vector2f getOffsetDirection()         { return offsetDirection; }
     public ArrayList<BodyPart> getChildParts()   { return childParts; }
     public ArrayList<Vector2f> getChildOffsets() { return childOffsets; }
+    
+    public void setChildOffset(int index, float x, float y) { childOffsets.get(index).translate(x,y); }
+    
+    public void setChildOffsetDirection(int index, float x, float y)
+    { 
+        childOffsetDirections.get(index).set(x, y); 
+    }
+    public void setChildOffsetDirection(int index, Vector2f offset )
+    { 
+        offset.normalise();
+        childOffsetDirections.get(index).set(offset); 
+    }
     
     
 }

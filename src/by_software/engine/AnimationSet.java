@@ -22,6 +22,7 @@ public class AnimationSet
     public final static AnimationSet PLAYER_PAULDRON_RIGHT   = new AnimationSet(new Animation[]{Animation.PLAYER_PAULDRON_RIGHT });
     public final static AnimationSet PLAYER_ARM_LEFT         = new AnimationSet(new Animation[]{Animation.PLAYER_ARM_LEFT });
     public final static AnimationSet PLAYER_ARM_RIGHT        = new AnimationSet(new Animation[]{Animation.PLAYER_ARM_RIGHT });
+    public final static AnimationSet PLAYER_LEGS             = new AnimationSet(new Animation[]{Animation.PLAYER_LEGS });
     
     
     

@@ -84,7 +84,7 @@ public class Mob extends GameObject
             move(move);
         }
     }
-    protected void setDirection(int x, int y)
+    protected void setDirection(float x, float y)
     {
         if(!( x == 0 && y ==0))
         {
@@ -102,10 +102,28 @@ public class Mob extends GameObject
             Vector2f.add(move, pos, pos);
         }
     }
+    protected void moveLocal(float x , float y)
+    { 
+        if(!( x == 0 && y ==0))
+        {
+            moveLocal(new Vector2f(x,y));
+        }
+    }
+    protected void moveLocal(Vector2f move)
+    {
+        if(!attacking)
+        {
+            move.normalise();
+            Util.rotate(move, direction, move);
+            //direction.set(move);
+            move.scale((float)(getSpeed() * Time.getDelta()));
+            Vector2f.add(move, pos, pos);
+        }
+    }
     protected void setDirection(Vector2f dir)
     {
         dir.normalise();
-        this.direction = dir;
+        direction.set(dir);
     }
     public boolean addItem(Item item)
     {

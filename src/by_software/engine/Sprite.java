@@ -6,13 +6,15 @@
 
 package by_software.engine;
 
+import by_software.game.Util;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import org.lwjgl.util.vector.Vector2f;
@@ -27,16 +29,18 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class Sprite
 {
    private static String dirPath = "C:/Users/Nigel/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
-      
+   
    public final static Sprite[] PLAYER_HEAD             = {new Sprite( new Vector2f(32,36),dirPath + "player/helm.png " ) };
    public final static Sprite[] PLAYER_BODY             = {new Sprite( new Vector2f(50,40),dirPath + "player/chestplate.png" )};
    public final static Sprite[] PLAYER_PAULDRON_LEFT    = {new Sprite( new Vector2f(27,35),dirPath + "player/poldren-left.png" )};
    public final static Sprite[] PLAYER_PAULDRON_RIGHT   = {new Sprite( new Vector2f(27,35),dirPath + "player/poldren-right.png")};
    public final static Sprite[] PLAYER_ARM_LEFT         = {new Sprite( new Vector2f(24,40),dirPath + "player/arm-left.png" ) };
    public final static Sprite[] PLAYER_ARM_RIGHT        = {new Sprite( new Vector2f(24,40),dirPath + "player/arm-right.png" ) };
+ 
+   public final static Sprite[] PLAYER_LEGS             = Sprite.MakeSprites(new Vector2f(40,40), dirPath, SpriteSheet.PLAYER_LEGS);
 
            
-           
+            
  /*  static
    {
       
@@ -56,13 +60,45 @@ public class Sprite
    private Vector3f color;
    private Texture texture; 
    private Vector2f size;   
+   private SpriteSheet sheet;
+   private int spriteIndex;
+   
+   
+   public static Sprite[] MakeSprites(Vector2f size , String path, SpriteSheet sheet)
+   {
+     
+       Sprite[] sprites = new Sprite[sheet.getNumberOfTiles()];
 
+       for(int i = 0; i < sprites.length ; i++)
+       {
+           sprites[i] = new Sprite(size,sheet,i);
+       }
+          
+       
+
+       return sprites;
+      
+   }
+   
    public Sprite(Vector3f color, Vector2f size)
    {
        this.color = color;
        this.size = size;
    }
-   
+   public Sprite(Vector3f color, Vector2f size,SpriteSheet sheet,int spriteIndex)
+   {
+       this.color = color;
+       this.size = size;
+       this.sheet = sheet;
+       this.spriteIndex = spriteIndex;
+   }
+   public Sprite( Vector2f size,SpriteSheet sheet,int spriteIndex)
+   {
+       this.color = new Vector3f(1,1,1);
+       this.size = size;
+       this.sheet = sheet;
+       this.spriteIndex = spriteIndex;
+   }
    public Sprite(Vector3f color, Vector2f size, String path)
    {
        this(size,path);
@@ -73,18 +109,24 @@ public class Sprite
    {
        this.color = new Vector3f(1,1,1);
        this.size = size;
-       texture = loadTexture(path);
+       texture = Util.loadTexture(path);
    }
    
+
    public Sprite(float r, float g, float b, float sX, float sY)
    {
        this(new Vector3f(r,g,b),new Vector2f(sX,sY));
    }
    
    
+   
    public void render()
    {
-       if(texture == null)
+       if(sheet != null)
+       {
+           sheet.render(spriteIndex);
+       }
+       else if(texture == null)
        {
             glColor3f(color.x,color.y,color.z);
             glBegin(GL_QUADS);
@@ -135,25 +177,25 @@ public class Sprite
         this.size = size;
     }
     
-     private static Texture loadTexture(String path)
-    {
-        Texture texture = null ;
-        if(path == "")
-        {
-            return texture;
-        }
-        try
-        {
-             texture = TextureLoader.getTexture("PNG", new FileInputStream(new File( path)));
-        }
-        catch (FileNotFoundException ex)
-        {   texture = null ;
-            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (IOException ex)
-        {   texture = null ;
-            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return texture;
-    }
+//    private static Texture loadTexture(String path)
+//    {
+//        Texture texture = null ;
+//        if(path == "")
+//        {
+//            return texture;
+//        }
+//        try
+//        {
+//             texture = TextureLoader.getTexture("PNG", new FileInputStream(new File( path)));
+//        }
+//        catch (FileNotFoundException ex)
+//        {   texture = null ;
+//            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch (IOException ex)
+//        {   texture = null ;
+//            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return texture;
+//    }
 }
