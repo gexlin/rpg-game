@@ -79,7 +79,7 @@ public class SpriteSheet
             float endX = startX +(1 /(float) numX);      
             float endY = startY + (1 /(float)numY);  
             
-            System.out.println(startX +" " + startY +" "+ + endX +"  " +(1 / (float)numY));
+            //System.out.println(startX +" " + startY +" "+ + endX +"  " +(1 / (float)numY));
             
             glEnable(GL_TEXTURE_2D);
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );

@@ -9,6 +9,7 @@ package by_software.game.gameobject.mob.body;
 import by_software.engine.AnimationSet;
 import by_software.engine.AnimationSet.AnimationType;
 import by_software.game.Util;
+import by_software.game.gameobject.equipment.armour.Armour;
 import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
@@ -33,7 +34,15 @@ public class BodyPart
     protected ArrayList<Vector2f> childOffsetDirections;
     protected AnimationSet animations;
     protected AnimationType currentAnimation = AnimationType.IDLE;
-    
+    protected Armour armour;
+    protected BodyPart parent;
+
+    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations, Armour armour)
+    {   
+        this(pos,offsetPos,direction,body,animations);
+        this.armour = armour;
+   
+    }
     public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations)
     {   
         this(pos,offsetPos,direction,animations);
@@ -48,6 +57,21 @@ public class BodyPart
         this.animations = animations;
     }
     
+    public BodyPart clone()
+    {
+        return new BodyPart(new Vector2f(this.pos),new Vector2f(this.offsetPos),new Vector2f(this.direction),(ArrayList<BodyPart>)null,new AnimationSet(this.animations),this.armour);
+//        this.pos = new Vector2f(that.pos);
+//        this.offsetPos = new Vector2f(that.offsetPos);
+//
+//        this.direction = new Vector2f(that.direction);
+//        this.offsetDirection = new Vector2f(that.offsetDirection);
+//    
+//        this.animations = new AnimationSet(that.animations);
+//        this.currentAnimation = AnimationType.IDLE;
+//        //IMPORTANT! change to clone ?
+//        this.armour = that.armour;
+    }
+
     public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction)
     {
         this.pos = pos;
@@ -65,6 +89,7 @@ public class BodyPart
             childOffsets = new ArrayList<>();
             childOffsetDirections = new ArrayList<>();
         }
+        part.setParent(this);
         childParts.add(part);
         childOffsets.add(part.getOffsetPos());
         childOffsetDirections.add(part.getOffsetDirection());
@@ -101,19 +126,42 @@ public class BodyPart
     public Vector2f getDirection()               { return direction;}
     public Vector2f getOffsetDirection()         { return offsetDirection; }
     public ArrayList<BodyPart> getChildParts()   { return childParts; }
+
+    
     public ArrayList<Vector2f> getChildOffsets() { return childOffsets; }
     
+    public Vector2f getRootOffset() 
+    { 
+        
+        if(parent != null)
+        {
+            return Vector2f.add(parent.getOffsetPos(), this.offsetPos, new Vector2f());
+        }
+//        for(BodyPart child: childParts)
+//        {
+//           if(child == part)
+//           {
+//               return Vector2f.add(parent.getChildOffsets(this), this.offsetPos, new Vector2f());
+//           }
+//        }
+      return new Vector2f(0,0);
+    }
+
+    public void setParent(BodyPart parent){ this.parent = parent;}
     public void setChildOffset(int index, float x, float y) { childOffsets.get(index).translate(x,y); }
     
-    public void setChildOffsetDirection(int index, float x, float y)
-    { 
-        childOffsetDirections.get(index).set(x, y); 
-    }
+    public void setChildOffsetDirection(int index, float x, float y){ childOffsetDirections.get(index).set(x, y); }
     public void setChildOffsetDirection(int index, Vector2f offset )
     { 
         offset.normalise();
         childOffsetDirections.get(index).set(offset); 
     }
+    public void equip(Armour armour)
+    {
+        this.armour = armour;
+    }
+    
+    
     
     
 }

@@ -29,7 +29,7 @@ public class DEBUG_Line
     }
     public void render()
     {
-        glColor3f(1f,1f,1f);
+        glColor3f(1f,1f,0f);
         glBegin(GL_LINES);
         {
             glVertex2f(startPos.x, startPos.y  );

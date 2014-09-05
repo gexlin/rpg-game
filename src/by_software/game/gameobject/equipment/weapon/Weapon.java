@@ -6,9 +6,10 @@
 
 package by_software.game.gameobject.equipment.weapon;
 
-import by_software.game.gameobject.Equipment.Slots;
+import by_software.game.Util;
 import by_software.game.gameobject.equipment.EquippableItem;
 import by_software.game.gameobject.mob.Mob;
+import by_software.game.gameobject.mob.body.Arm;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
@@ -33,12 +34,12 @@ public abstract class Weapon extends EquippableItem
     
     private Attack[] attacks;
     
-    private Slots equipedIn;
+  //  private Arm equipedIn;
     
     public Weapon(String name, Vector2f pos, Vector2f size, Vector3f color,float attackRange,
                                float stabDamage, float slashDamage, float bluntDamage, float weight,float attackDelayMod, float attackSpeedMod, String path)
     { //TODO change slot
-        super(name, Slots.RIGHT_HAND_1, pos, size, color, path);
+        super(name,  pos, size, color, path);
         this.attacks = new  Attack[3];
         this.stabDamage = stabDamage;
         this.slashDamage = slashDamage;
@@ -71,20 +72,20 @@ public abstract class Weapon extends EquippableItem
     {
         this.attacks = attacks;
     }
-    public void setEquipedIn(Slots equipedIn)
+    public void setEquipedOn(Arm equipedIn)
     {
-        this.equipedIn = equipedIn;
+        this.equipedOn = equipedIn;
     }
     
-    public Slots getEquipedIn()
-    {
-        return equipedIn;
-    }
-    
+//    public Arm getEquipedOn()
+//    {
+//        return equipedOn;
+//    }
+//    
     @Override
     public void render()
     {   
-        if(equipedIn == null)
+        if(equipedOn == null)
         {
             glPushMatrix();
             {
@@ -94,7 +95,7 @@ public abstract class Weapon extends EquippableItem
             glPopMatrix();   
         } else 
         {
-            Vector2f offset = equipedIn.getOffset();
+            Vector2f offset = ((Arm)equipedOn).getWeaponOffset();
             
             glPushMatrix();
             {
@@ -105,5 +106,18 @@ public abstract class Weapon extends EquippableItem
         }
         
     }
-  
+    @Override
+    public Vector2f getPos()
+    {
+        if(wielder == null)
+        {
+            
+            return pos;
+        }
+        else
+        {
+            Vector2f offsetRotated =  Util.rotateRadians(Util.angleRadians(wielder.getDirection()), ((Arm)equipedOn).getRootWeaponOffset());
+            return Vector2f.add(wielder.getPos(),offsetRotated, offsetRotated);
+        }
+    }
 }

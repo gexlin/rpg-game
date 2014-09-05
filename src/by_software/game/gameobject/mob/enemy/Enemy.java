@@ -51,7 +51,7 @@ public class Enemy extends Mob
             {
                 if(attackDelay.isOver())
                 {
-                    attack();
+                    attack(0);
                 }
             }
             else

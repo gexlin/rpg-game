@@ -46,14 +46,19 @@ public class Animation
     private Frame[] frames;
     private int currentFrame;
     
-    public Animation()
-    {
-        frames = new Frame[10];
-    }
-    
     public Animation( Frame[] frames)
     {
         this.frames = frames;
+    }
+    
+    public Animation( Animation that)
+    {
+        if(that == null)
+        {
+            return;
+        }
+        this.frames = Frame.clone(that.frames);
+        this.currentFrame = this.currentFrame;
     }
     
     private void setFrame(int index, Frame frame)
@@ -67,10 +72,19 @@ public class Animation
       if(temp.render())
       {
           currentFrame++;
-          System.out.println(currentFrame);
           currentFrame %= frames.length;
       } 
     }
     
-
+    public static Animation[] clone( Animation[] that)
+    {
+        Animation[] clone = new Animation[that.length];
+        
+        for(int i = 0;i < that.length; i++)
+        {
+            clone[i] = new Animation(that[i]);
+        }
+        
+        return clone;
+    }
 }

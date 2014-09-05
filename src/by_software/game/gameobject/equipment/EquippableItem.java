@@ -10,6 +10,7 @@ import by_software.game.Util;
 import by_software.game.gameobject.Equipment.Slots;
 import by_software.game.gameobject.Item;
 import by_software.game.gameobject.mob.Mob;
+import by_software.game.gameobject.mob.body.BodyPart;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -20,13 +21,12 @@ import org.lwjgl.util.vector.Vector3f;
 public abstract class EquippableItem extends Item
 {
     private Slots slot;
-    protected Mob owner;
+    protected BodyPart equipedOn;
     protected Mob wielder;
     
-    public EquippableItem(String name, Slots slot, Vector2f pos, Vector2f size, Vector3f color, String path)
+    public EquippableItem(String name, Vector2f pos, Vector2f size, Vector3f color, String path)
     {
         super(name, pos, size, color, path);
-        this.slot = slot;
     }
 
     public Slots getSlot(){return slot;}
@@ -42,15 +42,20 @@ public abstract class EquippableItem extends Item
         {
             
            
-            Vector2f offsetRotated =  Util.rotateRadians(Util.angleRadians(wielder.getDirection()), slot.getOffset());
+            Vector2f offsetRotated =  Util.rotateRadians(Util.angleRadians(wielder.getDirection()), equipedOn.getRootOffset());
             return Vector2f.add(wielder.getPos(),offsetRotated, offsetRotated);
         }
     }
     
-    public void setWielder(Mob wielder)
+    public void setWielder(Mob wielder, BodyPart equipedOn)
     {
         this.wielder = wielder;
+        this.equipedOn = equipedOn;
     }
-    
+    public void unequip()
+    {
+        this.wielder = null;
+         this.equipedOn = null;
+    }
     
 }

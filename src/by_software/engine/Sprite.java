@@ -7,20 +7,11 @@
 package by_software.engine;
 
 import by_software.game.Util;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
 
 /**
  *
@@ -60,24 +51,20 @@ public class Sprite
    private Vector3f color;
    private Texture texture; 
    private Vector2f size;   
+   
    private SpriteSheet sheet;
    private int spriteIndex;
    
    
    public static Sprite[] MakeSprites(Vector2f size , String path, SpriteSheet sheet)
    {
-     
        Sprite[] sprites = new Sprite[sheet.getNumberOfTiles()];
 
        for(int i = 0; i < sprites.length ; i++)
        {
            sprites[i] = new Sprite(size,sheet,i);
        }
-          
-       
-
        return sprites;
-      
    }
    
    public Sprite(Vector3f color, Vector2f size)
@@ -85,6 +72,16 @@ public class Sprite
        this.color = color;
        this.size = size;
    }
+   
+   public Sprite(Sprite that)
+   {
+        this.color       = new Vector3f(that.color);
+        this.texture     = that.texture; 
+        this.size        = new Vector2f(that.size);   
+        this.sheet       = that.sheet;
+        this.spriteIndex = that.spriteIndex;
+   }
+   
    public Sprite(Vector3f color, Vector2f size,SpriteSheet sheet,int spriteIndex)
    {
        this.color = color;
@@ -135,7 +132,6 @@ public class Sprite
                 glVertex2f(-size.x / 2,  size.y / 2  );
                 glVertex2f( size.x / 2,  size.y / 2 );
                 glVertex2f( size.x / 2, -size.y / 2 );
-               
            }
            glEnd();
            

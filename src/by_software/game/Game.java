@@ -36,7 +36,7 @@ public class Game
     public Game(String name)
     {
         Mob mob = new Enemy_Trolic(new Vector2f(100f,300f),new Vector2f(40f,40f),1,2,1); 
-        mob.equip(Slots.RIGHT_HAND_1, new SpearOfDebugging(new Vector2f(32,32)));
+        //mob.equip(Slots.RIGHT_HAND_1, new SpearOfDebugging(new Vector2f(32,32)));
         this.name = name;
         GameObject.initGameObjects(this);
         objects = new ArrayList();

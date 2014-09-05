@@ -15,7 +15,7 @@ package by_software.engine;
 public class Frame
 {
   //  public final static  HashMap<String,Frame[]> PLAYER = new HashMap<>(5,1f);
-     
+   private final static int milesFromNano =  1000000;
     
    public final static Frame[] PLAYER_HEAD             =    frameArray(250,Sprite.PLAYER_HEAD);
    public final static Frame[] PLAYER_BODY             =    frameArray(250,Sprite.PLAYER_BODY );
@@ -44,8 +44,14 @@ public class Frame
     
     public Frame(int lenghtMileSec, Sprite sprite)
     {
-        this.length = lenghtMileSec * 1000000;
+        this.length = lenghtMileSec * milesFromNano;
         this.sprite = sprite;
+    }
+    
+    public Frame(Frame that)
+    {
+        this.length = that.length;
+        this.sprite = that.sprite;
     }
     
     public static Frame[] frameArray(int[] lenghtMileSec, Sprite[] sprites)
@@ -74,6 +80,18 @@ public class Frame
         return frames;
     }
     
+    public static Frame[] clone( Frame[] that)
+    {
+        Frame[] clone = new Frame[that.length];
+        
+        for(int i = 0;i < that.length; i++)
+        {
+            clone[i] = new Frame(that[i]);
+        }
+        
+        return clone;
+    }
+    
     
     public boolean render()
     {
@@ -84,8 +102,7 @@ public class Frame
         }
         sprite.render();
       //  System.out.println("frame"   + frameEnd + "   "+ Time.getTime() +"  " + (frameEnd <= Time.getTime()));
-      
-      
+
         if(frameEnd <= Time.getTime())
         {
             rendering = false;

@@ -18,9 +18,9 @@ import org.lwjgl.util.vector.Vector3f;
 public class Armour extends EquippableItem
 {
 
-    public Armour(String name, Slots slot, Vector2f pos, Vector2f size, Vector3f color)
+    public Armour(String name, Vector2f pos, Vector2f size, Vector3f color)
     {
-        super(name, slot, pos, size, color, "");
+        super(name, pos, size, color, "");
     }
     
 }

@@ -39,12 +39,13 @@ public class Player extends Mob
     public static final int ATTACK_DELAY = 500;
     public static Vector3f color =  new Vector3f(.3f,.7f,.6f);
     private static float attackRange = 30; 
-    private Body body ;
+
 
     public Player(Vector2f pos,int inventorySize)
     {  
         super("Player", Faction.PLAYERS, pos,new Vector2f(SIZE,SIZE), color,GameObjectType.PLAYER,0,true, inventorySize, ATTACK_DELAY,new Fist());
-        this.body = Body.PLAYER_BODY;
+        this.body = Body.getHuman(this);
+        
     }
     
     public Player(float x, float y,int inventorySize)
@@ -78,9 +79,12 @@ public class Player extends Mob
         if(Keyboard.isKeyDown(Keyboard.KEY_E))
         {pickUp();}
         if(Keyboard.isKeyDown(Keyboard.KEY_F))
-        {equipment.equip(Slots.RIGHT_HAND_1,(Weapon)inventory.get(0));}
+        {
+            //equipment.equip(Slots.RIGHT_HAND_1,(Weapon)inventory.get(0));
+            body.equipRight((Weapon)inventory.get(0));
+        }
         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-        {attack();}
+        {attack(0);}
          setDirection(mx,my);
         super.moveLocal(x,y);
         
@@ -116,9 +120,9 @@ public class Player extends Mob
     }
     
     @Override
-    protected boolean attack()
+    protected boolean attack(int index)
     { 
-      return equipment.attackRight();
+      return body.attackRight(index);
     }
     @Override
     public void render()
@@ -131,7 +135,7 @@ public class Player extends Mob
             glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
             
           //  getFrame().render();
-            equipment.render();
+            //equipment.render();
             body.render();
         }
         glPopMatrix();

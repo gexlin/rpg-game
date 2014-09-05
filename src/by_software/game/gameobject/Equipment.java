@@ -8,7 +8,6 @@ package by_software.game.gameobject;
 
 import by_software.game.gameobject.equipment.EquippableItem;
 import by_software.game.gameobject.equipment.armour.Armour;
-import by_software.game.gameobject.equipment.weapon.Fist;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Mob;
 import org.lwjgl.util.vector.Vector2f;
@@ -20,19 +19,13 @@ import org.lwjgl.util.vector.Vector2f;
 public final class Equipment
 {
     
-    private final Armour[] armour;
-    private final Weapon[] weapons;
+    private final EquippableItem[] equipment;
+
     private final Mob owner;
-    
-    private Slots equipedLeft;
-    private Slots equipedRight;
     
     public Equipment(Mob owner)
     {
-        armour = new Armour[Slots.values().length];
-        weapons  = new  Weapon[ Slots.values().length];
-        equipedLeft = Slots.LEFT_HAND_1;
-        equipedRight = Slots.RIGHT_HAND_1;
+        equipment = new EquippableItem[Slots.values().length];
         this.owner = owner;
         
         
@@ -42,110 +35,108 @@ public final class Equipment
     public boolean equip(Armour item)
     {
         int index = item.getSlot().getSlot();
-        if(armour[index] != null)
+        if(equipment[index] != null)
         {
-            if(!unEquipArmour(index))
+            if(!unEquipItem(index))
             {
                 return false;
             } 
         }
         owner.removeItem(item);
-        armour[index] = item;
+        equipment[index] = item;
         return true;
     }
     
-    public boolean equip(Slots ws,Weapon weapon)
-    {
-        if(weapon != null)
-        {
-            int index = ws.getSlot();
-            if(weapons[index] != null)
-            {
-                if(!unEquipWeapon(index))
-                {
-                    return false;
-                } 
-            }
-            owner.removeItem(weapon);
-            weapons[index] = weapon;
-            
-            //TODO get right slot
-            weapon.setWielder(owner);
-            weapon.setEquipedIn(weapon.getSlot());
-            return true;
-        }
-        return false;
-    }
+//    public boolean equip(Slots ws,Weapon weapon)
+//    {
+//        if(weapon != null)
+//        {
+//            int index = ws.getSlot();
+//            if(equipment[index] != null)
+//            {
+//                if(!unEquipItem(index))
+//                {
+//                    return false;
+//                } 
+//            }
+//            owner.removeItem(weapon);
+//            equipment[index] = weapon;
+//            
+//            //TODO get right slot
+//            weapon.setWielder(owner);
+//            //weapon.setEquipedIn(weapon.getSlot());
+//            return true;
+//        }
+//        return false;
+//    }
     
-    public boolean unEquipArmour(int slot)
+    public boolean unEquipItem(int slot)
     {
-        EquippableItem item = armour[slot];
-        armour[slot] = null;
+        EquippableItem item = equipment[slot];
+        item.unequip();
+        equipment[slot] = null;
         return owner.addItem(item);
     }
     
-    public boolean unEquipWeapon(int slot)
-    {
-        Weapon weapon = weapons[slot];
-        weapon.setEquipedIn(null);
-        weapons[slot] = null;
-        return owner.addItem(weapon);
-    }
+//    public boolean unEquipWeapon(int slot)
+//    {
+//        Weapon weapon = weapons[slot];
+//        weapon.setEquipedIn(null);
+//        weapons[slot] = null;
+//        return owner.addItem(weapon);
+//    }
      
-    public void render()
-    {
-        for(Armour a: armour )
-        {   
-            if(a != null)
-            {
-                a.render();
-            }
-        }
-        if(weapons[equipedLeft.getSlot()] != null)
-        {
-            weapons[equipedLeft.getSlot()].render();
-        }
-        if(weapons[equipedRight.getSlot()] != null)
-        {
-            weapons[equipedRight.getSlot()].render();
-        }
-    }
+//
+//    public void render()
+//    {
+//        for(Armour a: armour )
+//        {   
+//            if(a != null)
+//            {
+//                a.render();
+//            }
+//        }
+//        if(weapons[equipedLeft.getSlot()] != null)
+//        {
+//            weapons[equipedLeft.getSlot()].render();
+//        }
+//        if(weapons[equipedRight.getSlot()] != null)
+//        {
+//            weapons[equipedRight.getSlot()].render();
+//        }
+//    }
+//    public Slots getEquipedLeft()
+//    {
+//        return equipedLeft;
+//    }
+//
+//    public Slots getEquipedRight()
+//    {
+//        return equipedRight;
+//    }
+//    
+//    public boolean attackRight()
+//    {
+//        Weapon w = weapons[equipedRight.getSlot()];
+//        if(w == null)
+//        {
+//            w = owner.getDefaultWeapon();
+//        }
+//                
+//        return w.attack(0,owner);
+//    }
+//    public boolean attackLeft()
+//    {
+//        Weapon w = weapons[equipedLeft.getSlot()];
+//        
+//        if(w == null)
+//        {
+//            w = owner.getDefaultWeapon();
+//        }
+//                
+//        return w.attack(0,owner);
+//    }
 
-    public Slots getEquipedLeft()
-    {
-        return equipedLeft;
-    }
-
-    public Slots getEquipedRight()
-    {
-        return equipedRight;
-    }
-    
-    public boolean attackRight()
-    {
-        Weapon w = weapons[equipedRight.getSlot()];
-        if(w == null)
-        {
-            w = owner.getDefaultWeapon();
-        }
-                
-        return w.attack(0,owner);
-    }
-    public boolean attackLeft()
-    {
-        Weapon w = weapons[equipedLeft.getSlot()];
-        
-        if(w == null)
-        {
-            w = owner.getDefaultWeapon();
-        }
-                
-        return w.attack(0,owner);
-    }
-    
-    
-    
-    
      public enum Slots{
         //ARMOUR
         HEAD(new Vector2f(0,0)),

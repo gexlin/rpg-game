@@ -45,6 +45,7 @@ public class Mob extends GameObject
     protected Weapon defaultWeapon;
     protected Faction faction;
     protected Body body;
+    
     public Mob(String name, Faction faction, Vector2f pos, Vector2f size, Vector3f color, GameObjectType type,int xp, boolean levelAble, int inventorySize, int attackDelay, Weapon defaultWeapon)
     {
         
@@ -58,15 +59,15 @@ public class Mob extends GameObject
         this.defaultWeapon = defaultWeapon;
         this.faction = faction;
         equipment = new Equipment(this);
-        defaultWeapon.setWielder(this);
+       // defaultWeapon.setWielder(this);
     }
     
-    protected boolean attack()
-    {
-        
-        if(attackDelay.isOver())
+   
+    protected boolean attack(int index)
+    { 
+       if(attackDelay.isOver())
         {
-            equipment.attackRight();
+            body.attackRight(index);
         }
         return false;
     }
@@ -146,10 +147,10 @@ public class Mob extends GameObject
            }
        }
     }
-    public boolean equip(Slots ws, Weapon weapon)
-    {
-        return equipment.equip(ws,weapon);
-    }
+//    public boolean equip(Slots ws, Weapon weapon)
+//    {
+//        return equipment.equip(ws,weapon);
+//    }
     public boolean equip(Armour armour)
     {
         return equipment.equip(armour);
@@ -194,7 +195,7 @@ public class Mob extends GameObject
             glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
             
             getFrame().render();
-            equipment.render();
+            //equipment.render();
         }
         glPopMatrix();
     
