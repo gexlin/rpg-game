@@ -187,17 +187,26 @@ public class Mob extends GameObject
     @Override
     public void render()
     {
+      
+        
         glPushMatrix();
         {
             
             
             glTranslatef(pos.x,pos.y,0);
-            glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
             
-            getFrame().render();
-            //equipment.render();
+            if(isHitBoxVisable())
+            {
+                getFrame().render();
+            }
+            
+            
+            glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
+
+            body.render();
         }
         glPopMatrix();
     
     }
+    
 }

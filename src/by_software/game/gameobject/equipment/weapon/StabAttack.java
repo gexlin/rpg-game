@@ -6,10 +6,11 @@
 
 package by_software.game.gameobject.equipment.weapon;
 
+import by_software.engine.render.AnimationSet;
 import by_software.engine.GameObject;
 import static by_software.engine.GameObject.getGame;
-import by_software.engine.GameObjectType;
 import by_software.game.gameobject.mob.Mob;
+import by_software.game.gameobject.mob.body.Arm;
 import java.util.ArrayList;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -27,12 +28,12 @@ public class StabAttack extends Attack
     }
     
     @Override
-    public boolean attack(Mob attacker)
+    public boolean attack(Mob attacker, Arm arm)
     {
         boolean result = false;
         if(attacker.getAttackDelay().isOver())
         {
-            
+            arm.setCurrentAnimation(AnimationSet.AnimationType.ATTACK_STAB_RIGHT);
             startPos = weapon.getPos();
             endPos = new Vector2f(attacker.getDirection());
             endPos.scale(weapon.getAttackRange());

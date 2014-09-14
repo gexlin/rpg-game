@@ -35,20 +35,21 @@ public class Game
     
     public Game(String name)
     {
-        Mob mob = new Enemy_Trolic(new Vector2f(100f,300f),new Vector2f(40f,40f),1,2,1); 
+        Mob mob = new Enemy_Trolic(new Vector2f(100f,300f),1.2f,1,2,1); 
         //mob.equip(Slots.RIGHT_HAND_1, new SpearOfDebugging(new Vector2f(32,32)));
         this.name = name;
         GameObject.initGameObjects(this);
+        GameObject.setHitVisable(true);
         objects = new ArrayList();
-        player = new Player(Display.getWidth()/2, Display.getHeight()/2,20);
+        player = new Player(Display.getWidth()/2, Display.getHeight()/2,20,.8f);
         objects.add(player);
         objects.add(new SpearOfDebugging(new Vector2f(32,32)));
         objects.add(new SpearOfDebugging(new Vector2f(Display.getWidth()/2, Display.getHeight()/2)));
        
         rayTraceLine = new DEBUG_Line(player.getPos(),player.getPos());
-        objects.add(new Enemy_Trolic(new Vector2f(200f,200f),new Vector2f(16f,16f),1,2,1));
-        objects.add(new Enemy_Trolic(new Vector2f(220f,200f),new Vector2f(32f,32f),1,2,1));
-        objects.add(new Enemy_Trolic(new Vector2f(240f,200f),new Vector2f(32f,32f),1,2,1));
+        objects.add(new Enemy_Trolic(new Vector2f(200f,200f),1f,1,2,1));
+        objects.add(new Enemy_Trolic(new Vector2f(220f,200f),1f,1,2,1));
+        objects.add(new Enemy_Trolic(new Vector2f(240f,200f),1f,1,2,1));
         objects.add(mob);
        initGame();
     }

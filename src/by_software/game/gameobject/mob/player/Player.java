@@ -6,18 +6,15 @@
 
 package by_software.game.gameobject.mob.player;
 
-import by_software.engine.Animation;
 import by_software.engine.GameObject;
 import by_software.engine.GameObjectType;
 import by_software.game.Util;
-import by_software.game.gameobject.Equipment.Slots;
 import by_software.game.gameobject.Item;
 import by_software.game.gameobject.equipment.weapon.Fist;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Faction;
 import by_software.game.gameobject.mob.Mob;
-import by_software.game.gameobject.mob.body.Body;
-import by_software.game.gameobject.mob.body.BodyPart;
+import by_software.game.gameobject.mob.body.HumanBody;
 import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -35,22 +32,23 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Player extends Mob
 {
-    public static final int SIZE = 32;
+    private final static Vector2f SIZE = new Vector2f(64,64);
+    
     public static final int ATTACK_DELAY = 500;
     public static Vector3f color =  new Vector3f(.3f,.7f,.6f);
     private static float attackRange = 30; 
 
 
-    public Player(Vector2f pos,int inventorySize)
+    public Player(Vector2f pos,int inventorySize,float scale)
     {  
-        super("Player", Faction.PLAYERS, pos,new Vector2f(SIZE,SIZE), color,GameObjectType.PLAYER,0,true, inventorySize, ATTACK_DELAY,new Fist());
-        this.body = Body.getHuman(this);
+        super("Player", Faction.PLAYERS, pos,(Vector2f)(new Vector2f(SIZE)).scale(scale), color,GameObjectType.PLAYER,0,true, inventorySize, ATTACK_DELAY,new Fist());
+        this.body = new HumanBody(this, scale, "player/");
         
     }
     
-    public Player(float x, float y,int inventorySize)
+    public Player(float x, float y,int inventorySize, float scale)
     {
-        this(new Vector2f(x,y),inventorySize);
+        this(new Vector2f(x,y),inventorySize, scale);
     }
     @Override
     public void update()
@@ -63,8 +61,10 @@ public class Player extends Mob
         float x = 0,y = 0;
         int mx = Mouse.getX(), my = Mouse.getY();
         //System.out.println(mx + ":mx before  my:"  + my);
-        mx -= Display.getWidth()/2;
-        my -= Display.getHeight()/2;
+//        mx -= Display.getWidth()/2;
+//        my -= Display.getHeight()/2;
+        mx -= this.getPos().x;
+        my -= this.getPos().y;
         //System.out.println(mx + ":mx  after  my:"  + my);
         if(Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
         {y++;}
@@ -85,7 +85,7 @@ public class Player extends Mob
         }
         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
         {attack(0);}
-         setDirection(mx,my);
+        setDirection(mx,my);
         super.moveLocal(x,y);
         
     }
@@ -124,21 +124,21 @@ public class Player extends Mob
     { 
       return body.attackRight(index);
     }
-    @Override
-    public void render()
-    {
-        glPushMatrix();
-        {
-            
-            
-            glTranslatef(pos.x,pos.y,0);
-            glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
-            
-          //  getFrame().render();
-            //equipment.render();
-            body.render();
-        }
-        glPopMatrix();
-    
-    }
+//    @Override
+//    public void render()
+//    {
+//        glPushMatrix();
+//        {
+//            
+//            
+//            glTranslatef(pos.x,pos.y,0);
+//            glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
+//            
+//          //  getFrame().render();
+//            //equipment.render();
+//            body.render();
+//        }
+//        glPopMatrix();
+//    
+//    }
 }

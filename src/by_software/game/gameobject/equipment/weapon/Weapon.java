@@ -53,9 +53,9 @@ public abstract class Weapon extends EquippableItem
     
     
     
-    public boolean attack(int attackIndex, Mob attacker)
+    public boolean attack(int attackIndex, Mob attacker, Arm arm)
     {
-       return attacks[attackIndex].attack(attacker);
+       return attacks[attackIndex].attack(attacker, arm);
     }
     public float getstabDamage(){return this.stabDamage;}
 

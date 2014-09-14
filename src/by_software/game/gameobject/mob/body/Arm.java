@@ -6,7 +6,7 @@
 
 package by_software.game.gameobject.mob.body;
 
-import by_software.engine.AnimationSet;
+import by_software.engine.render.AnimationSet;
 import by_software.game.Util;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Mob;
@@ -37,13 +37,13 @@ public class Arm extends BodyPart
     {
         super(pos, offsetPos, direction, body, animations);
         
-        this.weaponPos = new Vector2f(00,10);
+        this.weaponPos = new Vector2f(0,0);
         
     }
     public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction,  AnimationSet  animations)
     {
       super(pos, offsetPos, direction, animations);
-      this.weaponPos = new Vector2f(00, 10);
+      this.weaponPos = new Vector2f(0, 0);
     }
     public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction)
     {
@@ -70,7 +70,7 @@ public class Arm extends BodyPart
                 }
             }
                
-            animations.render(currentAnimation);
+            animations.render();
             if(weapon != null)
             {
                
@@ -101,7 +101,7 @@ public class Arm extends BodyPart
     
     public boolean attack(int attackIndex, Mob attacker)
     {
-       return weapon.attack(attackIndex,attacker);
+       return weapon.attack(attackIndex,attacker,this);
     }
     
     @Override

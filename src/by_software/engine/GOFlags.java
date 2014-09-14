@@ -10,13 +10,9 @@ package by_software.engine;
  *
  * @author Nigel
  */
-public enum GameObjectsFlags
+public enum GOFlags
 {
     
     REMOVED;
-    
-
-    
-    
-    
+ 
 }

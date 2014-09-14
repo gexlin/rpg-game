@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package by_software.engine;
+package by_software.engine.render;
 
+import by_software.engine.render.Sprite;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 

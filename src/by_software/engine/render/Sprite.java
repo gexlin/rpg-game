@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by_software.engine;
+package by_software.engine.render;
 
 import by_software.game.Util;
 import static org.lwjgl.opengl.GL11.*;
@@ -19,35 +19,7 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Sprite
 {
-   private static String dirPath = "C:/Users/Nigel/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
-   
-   public final static Sprite[] PLAYER_HEAD             = {new Sprite( new Vector2f(32,36),dirPath + "player/helm.png " ) };
-   public final static Sprite[] PLAYER_BODY             = {new Sprite( new Vector2f(50,40),dirPath + "player/chestplate.png" )};
-   public final static Sprite[] PLAYER_PAULDRON_LEFT    = {new Sprite( new Vector2f(27,35),dirPath + "player/poldren-left.png" )};
-   public final static Sprite[] PLAYER_PAULDRON_RIGHT   = {new Sprite( new Vector2f(27,35),dirPath + "player/poldren-right.png")};
-   public final static Sprite[] PLAYER_ARM_LEFT         = {new Sprite( new Vector2f(24,40),dirPath + "player/arm-left.png" ) };
-   public final static Sprite[] PLAYER_ARM_RIGHT        = {new Sprite( new Vector2f(24,40),dirPath + "player/arm-right.png" ) };
- 
-   public final static Sprite[] PLAYER_LEGS             = Sprite.MakeSprites(new Vector2f(40,40), dirPath, SpriteSheet.PLAYER_LEGS);
-
-           
-            
- /*  static
-   {
-      
-       PLAYER.put("helm", new Sprite( new Vector2f(32,36),dirPath + "player/helm.png " ) );
-       PLAYER.put("body", new Sprite( new Vector2f(50,40),dirPath + "player/chestplate.png" ) );
-       PLAYER.put("poldren-left", new Sprite( new Vector2f(27,35),dirPath + "player/poldren-left.png" ) );
-       PLAYER.put("poldren-right", new Sprite( new Vector2f(27,35),dirPath + "player/poldren-right.png") );
-       PLAYER.put("arm-left", new Sprite( new Vector2f(24,40),dirPath + "player/arm-left.png" ) );
-       PLAYER.put("arm-right", new Sprite( new Vector2f(24,40),dirPath + "player/arm-right.png" ) );
-       //PLAYER.put("arm-right", new Sprite( new Vector2f(512,5z),dirPath + "player/arm-right.png" ) );
-       
-   }*/
- 
-   
-   
-   
+  
    private Vector3f color;
    private Texture texture; 
    private Vector2f size;   
@@ -56,7 +28,7 @@ public class Sprite
    private int spriteIndex;
    
    
-   public static Sprite[] MakeSprites(Vector2f size , String path, SpriteSheet sheet)
+   public static Sprite[] MakeSprites(Vector2f size ,  SpriteSheet sheet)
    {
        Sprite[] sprites = new Sprite[sheet.getNumberOfTiles()];
 
@@ -70,7 +42,7 @@ public class Sprite
    public Sprite(Vector3f color, Vector2f size)
    {
        this.color = color;
-       this.size = size;
+       this.size = new Vector2f(size);
    }
    
    public Sprite(Sprite that)
@@ -85,14 +57,14 @@ public class Sprite
    public Sprite(Vector3f color, Vector2f size,SpriteSheet sheet,int spriteIndex)
    {
        this.color = color;
-       this.size = size;
+       this.size =  new Vector2f(size);
        this.sheet = sheet;
        this.spriteIndex = spriteIndex;
    }
    public Sprite( Vector2f size,SpriteSheet sheet,int spriteIndex)
    {
        this.color = new Vector3f(1,1,1);
-       this.size = size;
+       this.size = new Vector2f(size);
        this.sheet = sheet;
        this.spriteIndex = spriteIndex;
    }
@@ -105,7 +77,7 @@ public class Sprite
    public Sprite(Vector2f size, String path)
    {
        this.color = new Vector3f(1,1,1);
-       this.size = size;
+       this.size =  new Vector2f(size);
        texture = Util.loadTexture(path);
    }
    
@@ -121,7 +93,7 @@ public class Sprite
    {
        if(sheet != null)
        {
-           sheet.render(spriteIndex);
+           sheet.render(spriteIndex, size);
        }
        else if(texture == null)
        {
@@ -173,25 +145,9 @@ public class Sprite
         this.size = size;
     }
     
-//    private static Texture loadTexture(String path)
-//    {
-//        Texture texture = null ;
-//        if(path == "")
-//        {
-//            return texture;
-//        }
-//        try
-//        {
-//             texture = TextureLoader.getTexture("PNG", new FileInputStream(new File( path)));
-//        }
-//        catch (FileNotFoundException ex)
-//        {   texture = null ;
-//            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        catch (IOException ex)
-//        {   texture = null ;
-//            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return texture;
-//    }
+    public void scale(float scale)
+    {
+        size.scale(scale);
+    }
+
 }

@@ -82,7 +82,8 @@ public class Enemy extends Mob
         ArrayList<GameObject> objects = getGame().sphereCollide(pos, SIGHT_RANGE);
         for(GameObject go: objects)
         {
-            if(go.getType() == GameObjectType.PLAYER)
+            
+            if(this.isEnemy(go))//go.getType() == GameObjectType.PLAYER)
             {
                 System.out.println("I see you.");
                 setTarget((Mob)go);
@@ -101,6 +102,7 @@ public class Enemy extends Mob
             Vector2f.add(move, pos, pos);
         }
     }
+     
     protected void idle()
     {
     

@@ -7,6 +7,7 @@
 package by_software.game.gameobject.equipment.weapon;
 
 import by_software.game.gameobject.mob.Mob;
+import by_software.game.gameobject.mob.body.Arm;
 import org.lwjgl.util.vector.Vector2f;
 
 /**
@@ -29,6 +30,6 @@ public abstract class Attack
         this.attackDelay = attackDelay;
     }
 
-    public abstract boolean attack(Mob attacker);
+    public abstract boolean attack(Mob attacker, Arm arm);
 
 }

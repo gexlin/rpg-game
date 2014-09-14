@@ -7,7 +7,7 @@
 package by_software.game;
 
 import by_software.engine.GameObject;
-import by_software.engine.Sprite;
+import by_software.engine.render.Sprite;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

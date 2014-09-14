@@ -6,8 +6,8 @@
 
 package by_software.game.gameobject.mob.body;
 
-import by_software.engine.AnimationSet;
-import by_software.engine.AnimationSet.AnimationType;
+import by_software.engine.render.AnimationSet;
+import by_software.engine.render.AnimationSet.AnimationType;
 import by_software.game.Util;
 import by_software.game.gameobject.equipment.armour.Armour;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class BodyPart
     protected ArrayList<Vector2f> childOffsets;
     protected ArrayList<Vector2f> childOffsetDirections;
     protected AnimationSet animations;
-    protected AnimationType currentAnimation = AnimationType.IDLE;
+   
     protected Armour armour;
     protected BodyPart parent;
 
@@ -109,18 +109,18 @@ public class BodyPart
                     childPart.render();   
                 }
             }
-            animations.render(currentAnimation);
+            animations.render();
         }
         glPopMatrix();
         
     }
 
-    public void setCurrentAnimation(AnimationType currentAnimation){this.currentAnimation = currentAnimation;}
+    public void setCurrentAnimation(AnimationType currentAnimation){animations.setCurrentAnimation(currentAnimation);}
 
     
     
     public AnimationSet getAnimations() {return animations;}
-    public AnimationType getCurrentAnimation(){return currentAnimation;}
+    public AnimationType getCurrentAnimation(){return animations.getCurrentAnimation();}
     public Vector2f getPos()                     { return pos; }
     public Vector2f getOffsetPos()               { return offsetPos; }
     public Vector2f getDirection()               { return direction;}
@@ -161,6 +161,17 @@ public class BodyPart
         this.armour = armour;
     }
     
+    public void scale(float scale)
+    {
+        if(childOffsets != null)
+        {
+            for(Vector2f v: childOffsets)
+            {
+                v.scale(scale);
+            }  
+        }
+        animations.scale(scale);
+    }
     
     
     

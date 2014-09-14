@@ -22,7 +22,7 @@ public class Stats
     
     public Stats(int xp, boolean levelAble)
     {
-        speed = 50;
+        speed = 100;
         attackRate = 1f;
         this.levelAble = levelAble;
         if(levelAble)

@@ -5,6 +5,7 @@
  */
 
 package by_software.engine;
+import by_software.engine.render.Sprite;
 import by_software.game.Game;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.util.vector.Vector2f;
@@ -22,7 +23,8 @@ public abstract class GameObject
     protected Vector2f size;
     private Sprite sprite;
     protected GameObjectType type; 
-    protected boolean[] flags = new boolean[GameObjectsFlags.values().length];
+    private boolean[] flags = new boolean[GOFlags.values().length];
+    private static boolean[] sFlags = new boolean[GOStaticFlags.values().length];
     
     //protected Animation animation;
     public GameObject(String name,Vector2f pos, Vector2f size, Vector3f color ,GameObjectType type )
@@ -69,12 +71,12 @@ public abstract class GameObject
     
     public void remove()
     {   
-        flags[GameObjectsFlags.REMOVED.ordinal()] = true; 
+        flags[GOFlags.REMOVED.ordinal()] = true; 
     }
     
     public void addToGame()
     {
-        flags[GameObjectsFlags.REMOVED.ordinal()] = false; 
+        flags[GOFlags.REMOVED.ordinal()] = false; 
         GameObject.getGame().addObject(this);
     }
    
@@ -84,7 +86,7 @@ public abstract class GameObject
     public Vector2f getSize(){return size;}
     public float getSizeX(){return size.x;}
     public float getSizeY(){return size.y;}
-    public boolean isRemoved(){return flags[GameObjectsFlags.REMOVED.ordinal()]; }
+    public boolean isRemoved(){return flags[GOFlags.REMOVED.ordinal()]; }
     public Sprite getFrame(){return sprite;}
    
     public GameObjectType getType() {return type;}
@@ -99,5 +101,15 @@ public abstract class GameObject
     {
         return name;
     } 
+    
+    public static boolean isHitBoxVisable()
+    {
+        return sFlags[GOStaticFlags.HIT_BOX_VISABLE.ordinal()];
+    }
+    public static void setHitVisable(boolean visable)
+    {
+        sFlags[GOStaticFlags.HIT_BOX_VISABLE.ordinal()] = visable;
+    }
+    
     
 }

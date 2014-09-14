@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package by_software.engine;
+package by_software.engine.render;
+
+import by_software.engine.Time;
 
 /**
  *
@@ -14,28 +16,7 @@ package by_software.engine;
 
 public class Frame
 {
-  //  public final static  HashMap<String,Frame[]> PLAYER = new HashMap<>(5,1f);
    private final static int milesFromNano =  1000000;
-    
-   public final static Frame[] PLAYER_HEAD             =    frameArray(250,Sprite.PLAYER_HEAD);
-   public final static Frame[] PLAYER_BODY             =    frameArray(250,Sprite.PLAYER_BODY );
-   public final static Frame[] PLAYER_PAULDRON_LEFT    =    frameArray(250,Sprite.PLAYER_PAULDRON_LEFT );
-   public final static Frame[] PLAYER_PAULDRON_RIGHT   =    frameArray(250,Sprite.PLAYER_PAULDRON_RIGHT );
-   public final static Frame[] PLAYER_ARM_LEFT         =    frameArray(250,Sprite.PLAYER_ARM_LEFT );
-   public final static Frame[] PLAYER_ARM_RIGHT        =    frameArray(250,Sprite.PLAYER_ARM_RIGHT );
-   public final static Frame[] PLAYER_LEGS             =    frameArray(250,Sprite.PLAYER_LEGS );
-
-           
-    /*static
-    {
-       PLAYER.put("helm",           frameArray(250,Sprite.PLAYER_HEAD));
-       PLAYER.put("body",           frameArray(250,Sprite.PLAYER_BODY );
-       PLAYER.put("poldren-left",   frameArray(250,Sprite.PLAYER.get("poldren-left")) );
-       PLAYER.put("poldren-right",  frameArray(400,Sprite.PLAYER.get("poldren-right")) );
-       PLAYER.put("arm-left",       frameArray(400,Sprite.PLAYER.get("arm-left")));
-       PLAYER.put("arm-right",      frameArray(400,Sprite.PLAYER.get("arm-right")) );
-
-    }*/
     
     private int length;
     private Sprite sprite;
@@ -51,7 +32,7 @@ public class Frame
     public Frame(Frame that)
     {
         this.length = that.length;
-        this.sprite = that.sprite;
+        this.sprite = new Sprite(that.sprite);
     }
     
     public static Frame[] frameArray(int[] lenghtMileSec, Sprite[] sprites)
@@ -101,7 +82,6 @@ public class Frame
             frameEnd = Time.getTime() + length;
         }
         sprite.render();
-      //  System.out.println("frame"   + frameEnd + "   "+ Time.getTime() +"  " + (frameEnd <= Time.getTime()));
 
         if(frameEnd <= Time.getTime())
         {
@@ -111,5 +91,8 @@ public class Frame
         return false;
     }
         
-        
+    public void scale(float scale)
+    {
+        sprite.scale(scale);
+    }
 }

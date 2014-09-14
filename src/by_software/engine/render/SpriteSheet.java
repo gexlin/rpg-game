@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package by_software.engine;
+package by_software.engine.render;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -40,14 +40,14 @@ public class SpriteSheet
     private final int numY;
     private final int numOfTiles;
     
-    private final Vector2f size;
+   // private final Vector2f size;
     private Texture sheet;
     
     public SpriteSheet(String path,int tw, int th)
     {
         this.th= th;
         this.tw = tw;
-        this.size = new Vector2f(tw,th);
+        //this.size = new Vector2f(tw,th);
         sheet = Util.loadTexture(path);
         numY = sheet.getImageHeight() / th;
         numX = sheet.getImageWidth() / tw;   
@@ -55,10 +55,10 @@ public class SpriteSheet
     }
     
      
-    public void render(int index)
+    public void render(int index, Vector2f size)
    {
        
-    
+       System.out.println(size);
        if(sheet == null)
        {
            
@@ -78,9 +78,7 @@ public class SpriteSheet
             float startY = (float)(index  / numX) ;
             float endX = startX +(1 /(float) numX);      
             float endY = startY + (1 /(float)numY);  
-            
-            //System.out.println(startX +" " + startY +" "+ + endX +"  " +(1 / (float)numY));
-            
+                     
             glEnable(GL_TEXTURE_2D);
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
@@ -100,22 +98,13 @@ public class SpriteSheet
                 
                  glTexCoord2f(endX,endY);
                glVertex2f( size.x / 2, -size.y / 2 );   
-//              glTexCoord2f(0,1);
-//                glVertex2f(-size.x / 2, -size.y / 2  );
-//                
-//                 glTexCoord2f(0,0);
-//                glVertex2f(-size.x / 2,  size.y / 2  );
-//                
-//                 glTexCoord2f(.125f,0);
-//                glVertex2f( size.x / 2,  size.y / 2 );
-//                
-//                 glTexCoord2f(.125f,1);
-//                glVertex2f( size.x / 2, -size.y / 2 );   
-//                
+            
             glEnd();
             glDisable(GL_TEXTURE_2D);
-       }
-   }
+        }
+    }
+    
+   
     
     public int getNumberOfTiles(){ return this.numOfTiles; }
 
