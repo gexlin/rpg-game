@@ -18,6 +18,7 @@ public class AnimationSet
 
     private Animation[] animations;
     private AnimationType currentAnimation = AnimationType.IDLE;
+    private int loopAnimation = -1;
     
     private AnimationSet()
     {
@@ -44,7 +45,13 @@ public class AnimationSet
     
     public void render()
     {
-        animations[currentAnimation.ordinal()].render();
+        if(animations[currentAnimation.ordinal()].render())
+        {
+            if(--loopAnimation == 0)
+            {
+                currentAnimation = AnimationType.IDLE;
+            } 
+        }
     }
 
     public void scale(float scale)
@@ -63,9 +70,10 @@ public class AnimationSet
         return this.currentAnimation;
     }
     
-    public void setCurrentAnimation(AnimationType currentAnimation)
+    public void setCurrentAnimation(AnimationType currentAnimation, int loop)
     {
         this.currentAnimation = currentAnimation;
+        this.loopAnimation = loop;
     }
         
 

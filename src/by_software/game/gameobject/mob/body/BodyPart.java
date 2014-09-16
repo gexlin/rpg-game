@@ -115,7 +115,7 @@ public class BodyPart
         
     }
 
-    public void setCurrentAnimation(AnimationType currentAnimation){animations.setCurrentAnimation(currentAnimation);}
+    public void setCurrentAnimation(AnimationType currentAnimation){animations.setCurrentAnimation(currentAnimation,1);}
 
     
     

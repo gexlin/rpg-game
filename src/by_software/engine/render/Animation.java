@@ -37,14 +37,16 @@ public class Animation
         frames[index] = frame;
     }
     
-    public void render()
+    public boolean render()
     {
+      boolean animationOver = false;
       Frame temp = frames[currentFrame];
       if(temp.render())
       {
-          currentFrame++;
+          animationOver = ++currentFrame == frames.length ? true:false;
           currentFrame %= frames.length;
       } 
+      return animationOver;
     }
     
     public static Animation[] clone( Animation[] that)
