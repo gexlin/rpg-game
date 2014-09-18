@@ -18,12 +18,12 @@ import org.lwjgl.util.vector.Vector2f;
  *
  * @author Nigel
  */
-public class DEBUG_Line
+public class AttackRayCast
 {
     private Vector2f startPos;
     private Vector2f endPos;
     
-    public DEBUG_Line(Vector2f startPos, Vector2f endPos)
+    public AttackRayCast(Vector2f startPos, Vector2f endPos)
     {
         this.startPos = startPos;
         this.endPos = endPos;

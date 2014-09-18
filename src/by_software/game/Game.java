@@ -8,7 +8,7 @@ package by_software.game;
 
 import by_software.engine.GameObject;
 import by_software.engine.Physics;
-import by_software.game.gameobject.DEBUG_Line;
+import by_software.game.gameobject.AttackRayCast;
 import by_software.game.gameobject.Equipment.Slots;
 import by_software.game.gameobject.mob.enemy.Enemy_Trolic;
 import by_software.game.gameobject.equipment.weapon.SpearOfDebugging;
@@ -31,7 +31,7 @@ public class Game
     private ArrayList<GameObject> objects;
     private Player player;
     private String name;
-    private DEBUG_Line rayTraceLine;
+    private AttackRayCast rayTraceLine;
     private static boolean[] flags = new boolean[GameFlags.values().length];
     
     public Game(String name)
@@ -47,7 +47,7 @@ public class Game
         objects.add(new SpearOfDebugging(new Vector2f(32,32)));
         objects.add(new SpearOfDebugging(new Vector2f(Display.getWidth()/2, Display.getHeight()/2)));
        
-        rayTraceLine = new DEBUG_Line(player.getPos(),player.getPos());
+        rayTraceLine = new AttackRayCast(player.getPos(),player.getPos());
         objects.add(new Enemy_Trolic(new Vector2f(200f,200f),1f,1,2,1));
         objects.add(new Enemy_Trolic(new Vector2f(220f,200f),1f,1,2,1));
         objects.add(new Enemy_Trolic(new Vector2f(240f,200f),1f,1,2,1));
