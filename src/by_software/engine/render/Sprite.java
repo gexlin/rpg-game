@@ -28,7 +28,7 @@ public class Sprite
    private int spriteIndex;
    
    
-   public static Sprite[] MakeSprites(Vector2f size ,  SpriteSheet sheet)
+   public static Sprite[] makeSprites(Vector2f size ,  SpriteSheet sheet)
    {
        Sprite[] sprites = new Sprite[sheet.getNumberOfTiles()];
 

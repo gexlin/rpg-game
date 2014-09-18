@@ -14,6 +14,7 @@ import by_software.engine.render.Sprite;
 import by_software.engine.render.SpriteSheet;
 import by_software.game.gameobject.mob.Mob;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
@@ -46,11 +47,15 @@ public class HumanBody extends Body
         Sprite[] S_BODY             = {new Sprite( new Vector2f(50,40),path + "chestplate.png" )};
         Sprite[] S_PAULDRON_LEFT    = {new Sprite( new Vector2f(27,35),path + "poldren-left.png" )};
         Sprite[] S_PAULDRON_RIGHT   = {new Sprite( new Vector2f(27,35),path + "poldren-right.png")};
-        Sprite[] S_ARM_LEFT         = {new Sprite( new Vector2f(24,40),path + "arm-left.png" ) };
-        Sprite[] S_ARM_RIGHT        = {new Sprite( new Vector2f(48,80),path + "arm-right.png" ) };
-        Sprite[] S_ARM_RIGHT_ATTACK = Sprite.MakeSprites(new Vector2f(48,80), SS_ARMS);
+        Sprite[] S_ARM_LEFT         = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-left.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(0,0)) };
         
-        Sprite[] S_LEGS             = Sprite.MakeSprites(new Vector2f(64,64), SS_LEGS);
+        
+        Vector2f[] rightWeaponOffset   = new Vector2f[]{new Vector2f(-9,29),new Vector2f(-9,27),new Vector2f(-9,24),new Vector2f(-9,23),new Vector2f(-9,22),new Vector2f(-9,33),new Vector2f(-9,60)};
+                
+        ArmSprite[] S_ARM_RIGHT        = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-right.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(-9,30)) };
+        ArmSprite[] S_ARM_RIGHT_ATTACK = ArmSprite.makeSprites( new Vector2f(48,80),SS_ARMS, new Vector2f[][]{(Vector2f[]) null}, rightWeaponOffset);//
+        
+        Sprite[] S_LEGS             = Sprite.makeSprites(new Vector2f(64,64), SS_LEGS);
         
         
         
@@ -93,7 +98,7 @@ public class HumanBody extends Body
         BodyPart PLAYER_HEAD = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AS_HEAD);
         BodyPart PLAYER_CHEST = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AS_BODY);
         
-        Arm PLAYER_ARM_LEFT = new Arm(new Vector2f(0,0), new Vector2f(-8,12),new Vector2f(0,1),AS_ARM_LEFT);
+        Arm PLAYER_ARM_LEFT = new Arm(new Vector2f(0,0), new Vector2f(-16,0),new Vector2f(0,1),AS_ARM_LEFT);
         Arm PLAYER_ARM_RIGHT = new Arm(new Vector2f(0,0), new Vector2f(16,0),new Vector2f(0,1),AS_ARM_RIGHT);
         
         BodyPart PLAYER_PAULDRON_LEFT = new BodyPart(new Vector2f(0,0), new Vector2f(-26,00),new Vector2f(0,1),AS_PAULDRON_LEFT);

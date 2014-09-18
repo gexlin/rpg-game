@@ -5,6 +5,7 @@
  */
 
 package by_software.engine;
+import by_software.game.GameFlags;
 import by_software.engine.render.Sprite;
 import by_software.game.Game;
 import static org.lwjgl.opengl.GL11.*;
@@ -24,7 +25,7 @@ public abstract class GameObject
     private Sprite sprite;
     protected GameObjectType type; 
     private boolean[] flags = new boolean[GOFlags.values().length];
-    private static boolean[] sFlags = new boolean[GOStaticFlags.values().length];
+    
     
     //protected Animation animation;
     public GameObject(String name,Vector2f pos, Vector2f size, Vector3f color ,GameObjectType type )
@@ -101,15 +102,7 @@ public abstract class GameObject
     {
         return name;
     } 
-    
-    public static boolean isHitBoxVisable()
-    {
-        return sFlags[GOStaticFlags.HIT_BOX_VISABLE.ordinal()];
-    }
-    public static void setHitVisable(boolean visable)
-    {
-        sFlags[GOStaticFlags.HIT_BOX_VISABLE.ordinal()] = visable;
-    }
+   
     
     
 }

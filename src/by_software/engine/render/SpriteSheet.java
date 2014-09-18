@@ -57,8 +57,6 @@ public class SpriteSheet
      
     public void render(int index, Vector2f size)
    {
-       
-       System.out.println(size);
        if(sheet == null)
        {
            

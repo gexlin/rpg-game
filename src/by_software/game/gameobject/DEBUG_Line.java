@@ -6,6 +6,7 @@
 
 package by_software.game.gameobject;
 
+import by_software.game.Game;
 import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glColor3f;
@@ -24,18 +25,21 @@ public class DEBUG_Line
     
     public DEBUG_Line(Vector2f startPos, Vector2f endPos)
     {
-    this.startPos = startPos;
-    this.endPos = endPos;
+        this.startPos = startPos;
+        this.endPos = endPos;
     }
     public void render()
     {
-        glColor3f(1f,1f,0f);
-        glBegin(GL_LINES);
+        if(Game.isAttackRayVisable())
         {
-            glVertex2f(startPos.x, startPos.y  );
-            glVertex2f(endPos.x,  endPos.y  );
+            glColor3f(1f,1f,0f);
+            glBegin(GL_LINES);
+            {
+                glVertex2f(startPos.x, startPos.y  );
+                glVertex2f(endPos.x,  endPos.y  );
+            }
+            glEnd();
         }
-        glEnd();
     }
     public void set(Vector2f startPos, Vector2f endPos)
     {

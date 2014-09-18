@@ -51,6 +51,8 @@ public abstract class Weapon extends EquippableItem
         this.attacks = attacks;
     }
     
+    public abstract Weapon clone();
+
     
     
     public boolean attack(int attackIndex, Mob attacker, Arm arm)
@@ -84,7 +86,7 @@ public abstract class Weapon extends EquippableItem
 //    
     @Override
     public void render()
-    {   
+    {  
         if(equipedOn == null)
         {
             glPushMatrix();

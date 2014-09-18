@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 
-package by_software.engine;
+package by_software.game;
 
 /**
  *
  * @author Nigel
  */
-public enum GOStaticFlags
+public enum GameFlags
 {
-    HIT_BOX_VISABLE;
+    HIT_BOX_VISABLE,
+    ATTACK_RAY_VISABLE;
 }

@@ -32,6 +32,7 @@ public class Game
     private Player player;
     private String name;
     private DEBUG_Line rayTraceLine;
+    private static boolean[] flags = new boolean[GameFlags.values().length];
     
     public Game(String name)
     {
@@ -39,7 +40,7 @@ public class Game
         //mob.equip(Slots.RIGHT_HAND_1, new SpearOfDebugging(new Vector2f(32,32)));
         this.name = name;
         GameObject.initGameObjects(this);
-        GameObject.setHitVisable(true);
+        //GameObject.setHitVisable(true);
         objects = new ArrayList();
         player = new Player(Display.getWidth()/2, Display.getHeight()/2,20,.8f);
         objects.add(player);
@@ -149,5 +150,18 @@ public class Game
     private void initGame()
     {
         Team.initTeams();
+    }
+    
+     public static boolean isAttackRayVisable()
+    {
+        return flags[GameFlags.ATTACK_RAY_VISABLE.ordinal()];
+    }
+    public static boolean isHitBoxVisable()
+    {
+        return flags[GameFlags.HIT_BOX_VISABLE.ordinal()];
+    }
+    public static void setHitVisable(boolean visable)
+    {
+        flags[GameFlags.HIT_BOX_VISABLE.ordinal()] = visable;
     }
 }

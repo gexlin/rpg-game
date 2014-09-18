@@ -68,4 +68,8 @@ public class Animation
             f.scale(scale);
         }
     }
+
+    public int getCurrentFrameNumber() { return currentFrame; }
+    public Frame getCurrentFrame() { return frames[currentFrame]; }
+    
 }

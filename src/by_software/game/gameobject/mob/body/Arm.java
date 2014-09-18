@@ -7,6 +7,7 @@
 package by_software.game.gameobject.mob.body;
 
 import by_software.engine.render.AnimationSet;
+import by_software.engine.render.SpriteSheet;
 import by_software.game.Util;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Mob;
@@ -16,6 +17,7 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotated;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
@@ -26,6 +28,8 @@ public class Arm extends BodyPart
     
     private Weapon weapon;
     private Vector2f weaponPos;
+    
+   
     
     public Arm(Vector2f pos, Vector2f offsetPos, Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations,Weapon weapon,Vector2f weaponPos)
     {
@@ -69,13 +73,14 @@ public class Arm extends BodyPart
                    
                 }
             }
-               
-            animations.render();
+            
             if(weapon != null)
-            {
-               
+            {  
                 weapon.render();
             }
+            
+            animations.render();
+          
         }
         glPopMatrix();       
     }
@@ -96,7 +101,8 @@ public class Arm extends BodyPart
     }
     public Vector2f getWeaponOffset()
     {
-        return weaponPos;// weaponPos;
+        return getWeaponPos();// weaponPos;
+        
     }
     
     public boolean attack(int attackIndex, Mob attacker)
@@ -121,16 +127,27 @@ public class Arm extends BodyPart
 //        this.armour = this.armour;
     }
     
+    public Vector2f getWeaponPos()
+    {
+       return ((ArmSprite)this.getCurrentAnimation().getCurrentFrame().getSprite()).getWeaponOffset();
+    }
+    
     public Vector2f getRootWeaponOffset() 
     { 
         
         if(parent != null)
         {
-            return Vector2f.add(
-                                Vector2f.add(parent.getOffsetPos(), this.offsetPos, new Vector2f()),
-                                this.weaponPos,
-                                new Vector2f()
-                                );
+            return Vector2f.add
+            (
+                Vector2f.add
+                (
+                        parent.getOffsetPos(), 
+                        this.offsetPos, 
+                        new Vector2f()
+                ),
+                getWeaponPos(),
+                new Vector2f()
+            );
         }
 //        for(BodyPart child: childParts)
 //        {
@@ -139,7 +156,7 @@ public class Arm extends BodyPart
 //               return Vector2f.add(parent.getChildOffsets(this), this.offsetPos, new Vector2f());
 //           }
 //        }
-      return new Vector2f(0,0);
+       return  getWeaponPos();
     }
     
 }

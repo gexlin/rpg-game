@@ -12,9 +12,9 @@ import by_software.engine.GameObject;
 import static by_software.engine.GameObject.getGame;
 import by_software.engine.GameObjectType;
 import by_software.engine.Time;
+import by_software.game.Game;
 import by_software.game.Util;
 import by_software.game.gameobject.Equipment;
-import by_software.game.gameobject.Equipment.Slots;
 import by_software.game.gameobject.Inventory;
 import by_software.game.gameobject.Item;
 import by_software.game.gameobject.Stats;
@@ -170,7 +170,7 @@ public class Mob extends GameObject
     public void setAttackDelay(int delay){ attackDelay.start(delay);}
     
     public Vector2f getDirection(){return direction;}
-    public Weapon getDefaultWeapon(){return defaultWeapon;}
+    public Weapon getDefaultWeapon(){return defaultWeapon.clone();}
     public Faction getFaction()
     {
         return this.faction;
@@ -191,16 +191,13 @@ public class Mob extends GameObject
         
         glPushMatrix();
         {
-            
-            
             glTranslatef(pos.x,pos.y,0);
             
-            if(isHitBoxVisable())
+            if(Game.isHitBoxVisable())
             {
                 getFrame().render();
             }
-            
-            
+
             glRotated(Util.angleDegrees(direction), 0f, 0f, 1f);
 
             body.render();

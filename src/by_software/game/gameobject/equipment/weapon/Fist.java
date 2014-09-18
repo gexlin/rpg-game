@@ -25,6 +25,10 @@ public class Fist extends Weapon
      
         
     }
-    
+    @Override
+    public Weapon clone()
+    {
+        return new Fist();
+    }
 }
 

@@ -40,4 +40,10 @@ public class SpearOfDebugging extends Weapon
         
     }
     
+    @Override
+    public Weapon clone()
+    {
+        return new SpearOfDebugging(new Vector2f(this.pos));
+    }
+    
 }

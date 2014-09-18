@@ -6,6 +6,7 @@
 
 package by_software.game.gameobject.mob.body;
 
+import by_software.engine.render.Animation;
 import by_software.engine.render.AnimationSet;
 import by_software.engine.render.AnimationSet.AnimationType;
 import by_software.game.Util;
@@ -120,7 +121,8 @@ public class BodyPart
     
     
     public AnimationSet getAnimations() {return animations;}
-    public AnimationType getCurrentAnimation(){return animations.getCurrentAnimation();}
+    public AnimationType getCurrentAnimationType(){return animations.getCurrentAnimationType();}
+    public Animation getCurrentAnimation(){return animations.getCurrentAnimation();}
     public Vector2f getPos()                     { return pos; }
     public Vector2f getOffsetPos()               { return offsetPos; }
     public Vector2f getDirection()               { return direction;}

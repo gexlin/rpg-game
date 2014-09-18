@@ -45,7 +45,7 @@ public class AnimationSet
     
     public void render()
     {
-        if(animations[currentAnimation.ordinal()].render())
+        if(getCurrentAnimation().render())
         {
             if(--loopAnimation == 0)
             {
@@ -64,8 +64,12 @@ public class AnimationSet
             }
         }
     }
+    public Animation getCurrentAnimation()
+    {
+        return animations[currentAnimation.ordinal()];
+    }
     
-    public AnimationType getCurrentAnimation( )
+    public AnimationType getCurrentAnimationType( )
     {
         return this.currentAnimation;
     }

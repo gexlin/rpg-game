@@ -29,7 +29,7 @@ public class Body
     public static final int PAULDRON_RIGHT = 5;
     public static final int LEGS = 6;
 
-    private static Body PLAYER_BODY;
+
     
     protected BodyPart[] parts;
     //private Arm[] arms;

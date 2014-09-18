@@ -95,4 +95,9 @@ public class Frame
     {
         sprite.scale(scale);
     }
+
+    public Sprite getSprite()
+    {
+        return sprite;
+    }
 }
