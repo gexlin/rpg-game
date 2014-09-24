@@ -13,6 +13,7 @@ import static by_software.engine.GameObject.getGame;
 import by_software.engine.GameObjectType;
 import by_software.engine.Time;
 import by_software.game.Game;
+import by_software.game.GameFlags;
 import by_software.game.Util;
 import by_software.game.gameobject.Equipment;
 import by_software.game.gameobject.Inventory;
@@ -147,10 +148,16 @@ public class Mob extends GameObject
            }
        }
     }
-//    public boolean equip(Slots ws, Weapon weapon)
-//    {
-//        return equipment.equip(ws,weapon);
-//    }
+    public boolean equipLeft( Weapon weapon)
+    {
+        body.equipLeft(weapon);
+        return true;
+    }
+    public boolean equipRight( Weapon weapon)
+    {
+        body.equipRight(weapon);
+        return true;
+    }
     public boolean equip(Armour armour)
     {
         return equipment.equip(armour);
@@ -193,7 +200,7 @@ public class Mob extends GameObject
         {
             glTranslatef(pos.x,pos.y,0);
             
-            if(Game.isHitBoxVisable())
+            if(Game.isFlag(GameFlags.HIT_BOX_VISABLE))
             {
                 getFrame().render();
             }

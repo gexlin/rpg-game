@@ -8,7 +8,6 @@ package by_software.game.gameobject.mob.player;
 
 import by_software.engine.GameObject;
 import by_software.engine.GameObjectType;
-import by_software.game.Util;
 import by_software.game.gameobject.Item;
 import by_software.game.gameobject.equipment.weapon.Fist;
 import by_software.game.gameobject.equipment.weapon.Weapon;
@@ -18,11 +17,6 @@ import by_software.game.gameobject.mob.body.HumanBody;
 import java.util.ArrayList;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotated;
-import static org.lwjgl.opengl.GL11.glTranslatef;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -83,8 +77,15 @@ public class Player extends Mob
             //equipment.equip(Slots.RIGHT_HAND_1,(Weapon)inventory.get(0));
             body.equipRight((Weapon)inventory.get(0));
         }
-        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-        {attack(0);}
+        if(Keyboard.isKeyDown(Keyboard.KEY_G))
+        {
+            //equipment.equip(Slots.RIGHT_HAND_1,(Weapon)inventory.get(0));
+            body.equipLeft((Weapon)inventory.get(1));
+        }
+        if(Mouse.isButtonDown(1))
+        {attackRight(0);}
+        if(Mouse.isButtonDown(0))
+        {attackLeft(0);}
         setDirection(mx,my);
         super.moveLocal(x,y);
         
@@ -119,8 +120,12 @@ public class Player extends Mob
         return attackRange;
     }
     
-    @Override
-    protected boolean attack(int index)
+
+    protected boolean attackLeft(int index)
+    { 
+      return body.attackLeft(index);
+    }
+    protected boolean attackRight(int index)
     { 
       return body.attackRight(index);
     }

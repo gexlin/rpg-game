@@ -6,8 +6,8 @@
 
 package by_software.game.gameobject.mob.body;
 
+import by_software.engine.Delay;
 import by_software.engine.render.AnimationSet;
-import by_software.engine.render.SpriteSheet;
 import by_software.game.Util;
 import by_software.game.gameobject.equipment.weapon.Weapon;
 import by_software.game.gameobject.mob.Mob;
@@ -17,7 +17,6 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotated;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
@@ -28,7 +27,7 @@ public class Arm extends BodyPart
     
     private Weapon weapon;
     private Vector2f weaponPos;
-    
+    private Delay attackDelay;
    
     
     public Arm(Vector2f pos, Vector2f offsetPos, Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations,Weapon weapon,Vector2f weaponPos)
@@ -36,24 +35,31 @@ public class Arm extends BodyPart
         this(pos, offsetPos, direction, body, animations);
         this.weaponPos = weaponPos;
         this.weapon = weapon;
+        
+
     }
     public Arm(Vector2f pos, Vector2f offsetPos, Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations)
     {
         super(pos, offsetPos, direction, body, animations);
-        
+        this.attackDelay = new Delay(0);
+        attackDelay.start();
+        this.attackDelay.zeroDelay();
         this.weaponPos = new Vector2f(0,0);
         
     }
     public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction,  AnimationSet  animations)
     {
       super(pos, offsetPos, direction, animations);
+      this.attackDelay = new Delay(0);
+      attackDelay.start();
+      this.attackDelay.zeroDelay();
       this.weaponPos = new Vector2f(0, 0);
     }
-    public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction)
-    {
-       super(pos, offsetPos, direction);
-       
-    }
+//    public Arm(Vector2f pos,Vector2f offsetPos,Vector2f direction)
+//    {
+//       super(pos, offsetPos, direction);
+//       
+//    }
     
     @Override
     public void render()
@@ -85,9 +91,10 @@ public class Arm extends BodyPart
         glPopMatrix();       
     }
     
-    public void equip(Weapon weapon)
+    public boolean equip(Weapon weapon)
     {
         this.weapon = weapon;
+        return true;
     }
     
     public void unequip()
@@ -158,5 +165,8 @@ public class Arm extends BodyPart
 //        }
        return  getWeaponPos();
     }
+    
+    public Delay getAttackDelay(){return attackDelay;}
+    public void setAttackDelay(int delay){ attackDelay.start(delay);}
     
 }

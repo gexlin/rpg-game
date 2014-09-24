@@ -31,7 +31,7 @@ public class Inventory
         if(firstFree == items.length)
         {
             System.out.println("inventory full");
-            item.drop(owner.getPos());;
+            item.drop(owner.getPos());
             return false;
         }
         items[firstFree] = item;

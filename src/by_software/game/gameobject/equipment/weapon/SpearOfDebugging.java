@@ -33,7 +33,7 @@ public class SpearOfDebugging extends Weapon
        
         */
        
-        super( "The Spear Of Debugging",pos,new Vector2f(8,128), new Vector3f(1,1,1),128 ,4f,3f,1f,1f,5f,1f, "D:/work/imagesRPG/spear.png");
+        super( "The Spear Of Debugging",pos,new Vector2f(8,128), new Vector3f(1,1,1),128 ,4f,3f,1f,1f,5f,1f, WEAPON_PATH + "spear.png");
         Attack[] attacks = {new StabAttack(this)};
         this.initAttacks(attacks);
         

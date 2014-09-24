@@ -30,8 +30,8 @@ public class AttackRayCast
     }
     public void render()
     {
-        if(Game.isAttackRayVisable())
-        {
+//        if(Game.isAttackRayVisable())
+//        {
             glColor3f(1f,1f,0f);
             glBegin(GL_LINES);
             {
@@ -39,7 +39,7 @@ public class AttackRayCast
                 glVertex2f(endPos.x,  endPos.y  );
             }
             glEnd();
-        }
+//        }
     }
     public void set(Vector2f startPos, Vector2f endPos)
     {

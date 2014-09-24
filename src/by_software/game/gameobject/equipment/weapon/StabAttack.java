@@ -31,7 +31,7 @@ public class StabAttack extends Attack
     public boolean attack(Mob attacker, Arm arm)
     {
         boolean result = false;
-        if(attacker.getAttackDelay().isOver())
+        if(arm.getAttackDelay().isOver())
         {
             arm.setCurrentAnimation(AnimationSet.AnimationType.ATTACK_STAB_RIGHT);
             startPos = weapon.getPos();
@@ -56,7 +56,7 @@ public class StabAttack extends Attack
                 mob.damage((int)weapon.getStabDamage() * attacker.getStrength());  
                 result = true;
             }
-            attacker.setAttackDelay((int)(weapon.getAttackDelayMod()* attackDelay));
+            arm.setAttackDelay((int)(weapon.getAttackDelayMod()* attackDelay));
             
         }
         return result;

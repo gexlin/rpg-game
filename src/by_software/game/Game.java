@@ -9,7 +9,6 @@ package by_software.game;
 import by_software.engine.GameObject;
 import by_software.engine.Physics;
 import by_software.game.gameobject.AttackRayCast;
-import by_software.game.gameobject.Equipment.Slots;
 import by_software.game.gameobject.mob.enemy.Enemy_Trolic;
 import by_software.game.gameobject.equipment.weapon.SpearOfDebugging;
 import by_software.game.gameobject.mob.player.Player;
@@ -32,51 +31,62 @@ public class Game
     private Player player;
     private String name;
     private AttackRayCast rayTraceLine;
-    private static boolean[] flags = new boolean[GameFlags.values().length];
+    private static final boolean[] flags = new boolean[GameFlags.values().length];
     
     public Game(String name)
     {
         Mob mob = new Enemy_Trolic(new Vector2f(100f,300f),1.2f,1,2,1); 
-        //mob.equip(Slots.RIGHT_HAND_1, new SpearOfDebugging(new Vector2f(32,32)));
+        mob.equipRight( new SpearOfDebugging(new Vector2f(32,32)));
+        mob.equipLeft( new SpearOfDebugging(new Vector2f(32,32)));
+        
         this.name = name;
         GameObject.initGameObjects(this);
-        //GameObject.setHitVisable(true);
+        Game.setFlag(GameFlags.ATTACK_RAY_VISABLE,true);
+        //Game.setFlag(GameFlags.HIT_BOX_VISABLE,true);
+        
         objects = new ArrayList();
         player = new Player(Display.getWidth()/2, Display.getHeight()/2,20,.8f);
         objects.add(player);
         objects.add(new SpearOfDebugging(new Vector2f(32,32)));
         objects.add(new SpearOfDebugging(new Vector2f(Display.getWidth()/2, Display.getHeight()/2)));
        
+        
         rayTraceLine = new AttackRayCast(player.getPos(),player.getPos());
-        objects.add(new Enemy_Trolic(new Vector2f(200f,200f),1f,1,2,1));
+        
+        objects.add(new Enemy_Trolic(new Vector2f(200f,60f),1f,1,2,1));
         objects.add(new Enemy_Trolic(new Vector2f(220f,200f),1f,1,2,1));
-        objects.add(new Enemy_Trolic(new Vector2f(240f,200f),1f,1,2,1));
+        objects.add(new Enemy_Trolic(new Vector2f(240f,280f),1f,1,2,1));
         objects.add(mob);
-       initGame();
+        initGame();
     }
     
     public void getInput()
     {
         player.getInput();
     }
+    
     public void update()
     {
-       removeObjects();
+        removeObjects();
         for(GameObject go: objects)
         {
             go.update();
-        }
-         
+        }     
     }
+    
     public void render()
     {
         int i = 0;
+        
         for(GameObject go: objects)
         {
-            go.render();
-            
+            go.render();    
         }
-        rayTraceLine.render();
+        
+        if(isFlag(GameFlags.ATTACK_RAY_VISABLE))
+        {
+             rayTraceLine.render();
+        }
     }
     public void removeObjects()
     {
@@ -84,8 +94,7 @@ public class Game
         {
             GameObject go = it.next();
             if(go.isRemoved())
-            {
-               
+            {               
                 it.remove();
             }
         }
@@ -107,7 +116,6 @@ public class Game
                 res.add(go);
             }
         }
-        
         return res;
     }
     
@@ -131,14 +139,15 @@ public class Game
     public ArrayList<GameObject> rayCast(Vector2f startPos, Vector2f endPos)
     {
         
-        
         ArrayList<GameObject> res = new ArrayList();
         Line2D l1 = new Line2D.Float((int)startPos.getX(),(int)startPos.getY(),(int)endPos.getX(),(int)endPos.getY());
         
-        rayTraceLine.set(new Vector2f(startPos), new Vector2f(endPos));
-        for(GameObject go : objects)
+        if(isFlag(GameFlags.ATTACK_RAY_VISABLE))
         {
-            
+            rayTraceLine.set(new Vector2f(startPos), new Vector2f(endPos));
+        }
+        for(GameObject go : objects)
+        {     
             if(Physics.checkCollision(l1, go) != null)
             {
                 res.add(go);
@@ -152,16 +161,17 @@ public class Game
         Team.initTeams();
     }
     
-     public static boolean isAttackRayVisable()
+//    public static void setAttackRayVisable( boolean set )
+//    {
+//        flags[GameFlags.ATTACK_RAY_VISABLE.ordinal()] = set;
+//    }
+    
+    public static boolean isFlag(GameFlags f)
     {
-        return flags[GameFlags.ATTACK_RAY_VISABLE.ordinal()];
+        return flags[f.ordinal()];
     }
-    public static boolean isHitBoxVisable()
+    public static void setFlag(GameFlags f,boolean visable)
     {
-        return flags[GameFlags.HIT_BOX_VISABLE.ordinal()];
-    }
-    public static void setHitVisable(boolean visable)
-    {
-        flags[GameFlags.HIT_BOX_VISABLE.ordinal()] = visable;
+        flags[f.ordinal()] = visable;
     }
 }

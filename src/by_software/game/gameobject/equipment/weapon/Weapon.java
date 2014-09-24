@@ -22,6 +22,8 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public abstract class Weapon extends EquippableItem
 {
+    public final static String WEAPON_PATH = "C:/Users/drgex_000/Documents/NetBeansProjects/RPGGame/src/by_software/res/player/";
+    
     private float attackRange;
    
     private float stabDamage;
@@ -112,8 +114,7 @@ public abstract class Weapon extends EquippableItem
     public Vector2f getPos()
     {
         if(wielder == null)
-        {
-            
+        {    
             return pos;
         }
         else

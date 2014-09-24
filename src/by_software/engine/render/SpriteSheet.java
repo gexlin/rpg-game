@@ -25,21 +25,24 @@ import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import org.newdawn.slick.opengl.Texture;
 import org.lwjgl.util.vector.Vector2f;
 import by_software.game.Util;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import org.lwjgl.util.vector.Vector3f;
 /**
  *
  * @author Nigel
  */
 public class SpriteSheet
-{private static String dirPath = "C:/Users/Nigel/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
+{
+    //private static String dirPath = "C:/Users/Nigel/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
     
-    public static final SpriteSheet PLAYER_LEGS = new SpriteSheet(dirPath + "player/legs.png" ,64,64); 
+//    public static final SpriteSheet PLAYER_LEGS = new SpriteSheet(dirPath + "player/legs.png" ,64,64); 
     
     private final int tw;
     private final int th;
     private final int numX;
     private final int numY;
     private final int numOfTiles;
-    
+    private Vector3f color = new Vector3f(1,1,1);
    // private final Vector2f size;
     private Texture sheet;
     
@@ -82,6 +85,8 @@ public class SpriteSheet
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
             //glColor3f(1,1,1);
             glEnable(GL_BLEND);
+            glColor3f(color.x,color.y,color.z);
+           
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             sheet.bind();
             glBegin(GL_QUADS);

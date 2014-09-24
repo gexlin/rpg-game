@@ -87,9 +87,12 @@ public class Body
     
     public void scale(float scale)
     {
-        for(BodyPart bp: parts)
+        if(scale != 1.0 && scale != 0)
         {
-            bp.scale(scale);
+            for(BodyPart bp: parts)
+            {
+                bp.scale(scale);
+            }
         }
     }
     
