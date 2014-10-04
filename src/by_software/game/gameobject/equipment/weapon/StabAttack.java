@@ -33,7 +33,7 @@ public class StabAttack extends Attack
         boolean result = false;
         if(arm.getAttackDelay().isOver())
         {
-            arm.setCurrentAnimation(AnimationSet.AnimationType.ATTACK_STAB_RIGHT);
+            arm.setCurrentAnimation(AnimationSet.AnimationType.ATTACK_STAB_RIGHT, (int)(weapon.getAttackDelayMod()* attackDelay),true);
             startPos = weapon.getPos();
             endPos = new Vector2f(attacker.getDirection());
             endPos.scale(weapon.getAttackRange());
@@ -61,5 +61,4 @@ public class StabAttack extends Attack
         }
         return result;
     }
-
 }

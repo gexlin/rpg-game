@@ -16,10 +16,17 @@ public class Animation
 {  
     private Frame[] frames;
     private int currentFrame;
-    
+    private int length;
+            
     public Animation( Frame[] frames)
     {
         this.frames = frames;
+        length = 0;
+        for(Frame f : frames)
+        {
+            length += f.getLength();
+        }
+        
     }
     
     public Animation( Animation that)
@@ -29,7 +36,9 @@ public class Animation
             return;
         }
         this.frames = Frame.clone(that.frames);
-        this.currentFrame = this.currentFrame;
+        this.currentFrame = that.currentFrame;
+        this.length = that.length;
+        
     }
     
     private void setFrame(int index, Frame frame)
@@ -60,6 +69,38 @@ public class Animation
         
         return clone;
     }
+    
+    public void setLength(int time, boolean keepRatio)
+    {
+    //TODO
+         
+        if(time != this.length)
+        {
+             
+            if(!keepRatio)
+            {
+             
+                time = time/frames.length;
+                for(Frame f: frames)
+                {
+                    f.setLength(time);
+                }
+            }
+            else
+            {
+                //int length = this.length;
+                
+                for(Frame f: frames)
+                {
+                   
+                    f.setLength((int)(time * ((float)f.getLength() / (float)this.length)));
+                }       
+            }
+            this.length = time;
+        }
+                
+    }
+    
     
     public void scale(float scale)
     {

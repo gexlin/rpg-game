@@ -117,6 +117,10 @@ public class BodyPart
     }
 
     public void setCurrentAnimation(AnimationType currentAnimation){animations.setCurrentAnimation(currentAnimation,1);}
+    public void setCurrentAnimation(AnimationType currentAnimation, int time, boolean ratio)
+    {
+        animations.setCurrentAnimation(currentAnimation,1,time,ratio);
+    }
 
     
     

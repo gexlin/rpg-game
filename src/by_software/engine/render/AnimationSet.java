@@ -79,8 +79,14 @@ public class AnimationSet
         this.currentAnimation = currentAnimation;
         this.loopAnimation = loop;
     }
-        
 
+    
+    public void setCurrentAnimation(AnimationType currentAnimation, int loop, int time, boolean ratio)
+    {
+        this.currentAnimation = currentAnimation;/////////////////////////////////////////
+        this.loopAnimation = loop;
+        getCurrentAnimation().setLength(time,ratio);
+    }
 
     //ordinals keep track of index into animations 
     public enum AnimationType

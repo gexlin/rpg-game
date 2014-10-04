@@ -31,12 +31,14 @@ public class Physics
        
         Rectangle r = makeHitBox(go);
         boolean res = r1.intersects(r);
-         if(res)
+        if(res)
         {
             return go;
         }
         else
+        {
             return null;
+        }
     }
     
     public static GameObject checkCollision(Line2D l1, GameObject go)
@@ -44,12 +46,14 @@ public class Physics
        
         Rectangle r = makeHitBox(go);
         boolean res = l1.intersects(r);
-         if(res)
+        if(res)
         {
             return go;
         }
         else
+        {
             return null;
+        }
     }
    
     
@@ -64,5 +68,4 @@ public class Physics
                             (int)go.getSizeY());
         
     }
-    
 }

@@ -50,8 +50,7 @@ public class Frame
     
     
     public static Frame[] frameArray(int lenghtMileSec, Sprite[] sprites)
-    {
-        
+    {    
         Frame[] frames = new Frame[sprites.length];
         
         for(int i = 0; i < sprites.length; i++)   
@@ -100,4 +99,16 @@ public class Frame
     {
         return sprite;
     }
+
+    public int getLength() 
+    {
+        return length / milesFromNano;
+    }
+
+    public void setLength(int lenghtMileSec) 
+    {
+        this.length = lenghtMileSec * milesFromNano;
+    }
+    
+    
 }

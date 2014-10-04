@@ -19,7 +19,7 @@ public class Fist extends Weapon
    //                            float stabDamage, float slashDamage, float bluntDamage, float weight,float attackDelayMod, float attackSpeedMod
     public Fist()
     {
-        super( "Fist Of Punching",new Vector2f(32,32),new Vector2f(4,4), new Vector3f(1f,.5f,.1f),10 ,1f,1f,1f,1f,2f,1f, "");
+        super( "Fist Of Punching",new Vector2f(32,32),new Vector2f(4,4), new Vector3f(1f,.5f,.1f),10 ,1f,1f,1f,1f,2f,2f, "");
         Attack[] attacks = {new StabAttack(this)};
         this.initAttacks(attacks);
      
