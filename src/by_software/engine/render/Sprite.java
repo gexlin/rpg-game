@@ -26,7 +26,7 @@ public class Sprite
    
    private SpriteSheet sheet;
    private int spriteIndex;
-   
+ 
    
    public static Sprite[] makeSprites(Vector2f size ,  SpriteSheet sheet)
    {
@@ -149,5 +149,4 @@ public class Sprite
     {
         size.scale(scale);
     }
-
 }

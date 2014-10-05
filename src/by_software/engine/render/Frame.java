@@ -22,40 +22,56 @@ public class Frame
     private Sprite sprite;
     private boolean rendering = false;
     private long frameEnd;
+    private boolean activeFrame = false;
+    private boolean triggeredAlready = false;  
     
-    public Frame(int lenghtMileSec, Sprite sprite)
+    public Frame(int lenghtMileSec, Sprite sprite, boolean active)
     {
         this.length = lenghtMileSec * milesFromNano;
         this.sprite = sprite;
+        this.activeFrame = active;
     }
     
     public Frame(Frame that)
     {
         this.length = that.length;
         this.sprite = new Sprite(that.sprite);
+        this.activeFrame = that.activeFrame;
+        
     }
     
-    public static Frame[] frameArray(int[] lenghtMileSec, Sprite[] sprites)
+    public static Frame[] frameArray(int[] lenghtMileSec, Sprite[] sprites, int beginActive , int endActive)
     {
         
         Frame[] frames = new Frame[sprites.length];
         
         for(int i = 0; i < sprites.length; i++)   
         { 
+            
             int j = i % lenghtMileSec.length;
-            frames[i] = new Frame(lenghtMileSec[j], sprites[i]);
+            boolean active = false;
+            if(i >= beginActive && i < endActive)
+            {
+                active = true;
+            }
+            frames[i] = new Frame(lenghtMileSec[j], sprites[i],active);
         }
         return frames;
     }
     
     
-    public static Frame[] frameArray(int lenghtMileSec, Sprite[] sprites)
+    public static Frame[] frameArray(int lenghtMileSec, Sprite[] sprites, int beginActive , int endActive)
     {    
         Frame[] frames = new Frame[sprites.length];
         
         for(int i = 0; i < sprites.length; i++)   
         { 
-            frames[i] = new Frame(lenghtMileSec, sprites[i]);
+            boolean active = false;
+            if(i >= beginActive && i < endActive)
+            {
+                active = true;
+            }
+            frames[i] = new Frame(lenghtMileSec, sprites[i], active);
         }
         return frames;
     }
@@ -110,5 +126,28 @@ public class Frame
         this.length = lenghtMileSec * milesFromNano;
     }
     
+
+    public boolean isActive()
+    {
+        return activeFrame;
+    }
+
+    public boolean isTriggeredAlready()
+    {
+        return triggeredAlready;
+    }
     
+    public boolean triggerEvent()
+    {
+        if(isActive() && !isTriggeredAlready())
+        {
+                return triggeredAlready = true;   
+        }
+        return false;
+    }
+    
+    public void rearm()
+    {
+        triggeredAlready = false;
+    }
 }

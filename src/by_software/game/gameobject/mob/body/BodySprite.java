@@ -46,6 +46,17 @@ public class BodySprite extends Sprite
         
     }
      
+    @Override
+    public void scale(float scale)
+    {
+        super.scale(scale);
+        if(childOffsets != null)
+        for(Vector2f v : childOffsets)
+        {
+            if(v != null)
+            v.scale(scale);
+        }
+    }
     public Vector2f getOffset(int index) { return childOffsets[index]; }
     
 }

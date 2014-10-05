@@ -6,10 +6,13 @@
 
 package by_software.game.gameobject.equipment.weapon;
 
+import by_software.engine.GameObject;
+import static by_software.engine.GameObject.getGame;
 import by_software.game.Util;
 import by_software.game.gameobject.equipment.EquippableItem;
 import by_software.game.gameobject.mob.Mob;
 import by_software.game.gameobject.mob.body.Arm;
+import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
@@ -22,7 +25,7 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public abstract class Weapon extends EquippableItem
 {
-    public final static String WEAPON_PATH = "C:/Users/drgex_000/Documents/NetBeansProjects/RPGGame/src/by_software/res/player/";
+    public final static String WEAPON_PATH = "src/res/Weapons/";
     
     private float attackRange;
    
@@ -35,7 +38,8 @@ public abstract class Weapon extends EquippableItem
     private float attackSpeedMod;
     
     private Attack[] attacks;
-    
+    protected Vector2f startPos;
+    protected Vector2f endPos;
   //  private Arm equipedIn;
     
     public Weapon(String name, Vector2f pos, Vector2f size, Vector3f color,float attackRange,
@@ -50,7 +54,7 @@ public abstract class Weapon extends EquippableItem
         this.attackRange = attackRange;
         this.attackDelayMod = attackDelayMod;
         this.attackSpeedMod = attackSpeedMod;
-        this.attacks = attacks;
+        //this.attacks = attacks;
     }
     
     public abstract Weapon clone();
@@ -109,6 +113,36 @@ public abstract class Weapon extends EquippableItem
             glPopMatrix(); 
         }
         
+    }
+    
+    public void active()
+    {
+        //preey window
+    }
+    public void event()
+    {
+        //attack or block if shield
+            startPos = this.getPos();
+            endPos = new Vector2f(wielder.getDirection());
+            endPos.scale(this.getAttackRange());
+            
+            Vector2f.add(startPos, endPos, endPos);
+            
+            ArrayList<GameObject>  rayRes = getGame().rayCast(startPos, endPos);
+            ArrayList<Mob> enemys = new ArrayList();
+            
+            for(GameObject go : rayRes)
+            {
+                if(wielder.isEnemy(go))
+                {
+                    enemys.add((Mob)go);
+                }
+            }
+            
+            for(Mob mob : enemys)
+            {
+                mob.damage((int)this.getStabDamage() * wielder.getStrength());  
+            }
     }
     @Override
     public Vector2f getPos()

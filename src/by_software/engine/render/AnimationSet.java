@@ -86,8 +86,22 @@ public class AnimationSet
         this.currentAnimation = currentAnimation;/////////////////////////////////////////
         this.loopAnimation = loop;
         getCurrentAnimation().setLength(time,ratio);
+        rearm();
     }
-
+    
+    public void rearm()
+    {
+        getCurrentAnimation().rearm();
+    }
+    public boolean isActive()
+    {
+        return this.getCurrentAnimation().isActive();
+    }
+    public boolean triggerEvent()
+    {
+        return this.getCurrentAnimation().triggerEvent();
+    }
+    
     //ordinals keep track of index into animations 
     public enum AnimationType
     {

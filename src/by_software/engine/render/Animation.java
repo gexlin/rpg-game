@@ -113,4 +113,19 @@ public class Animation
     public int getCurrentFrameNumber() { return currentFrame; }
     public Frame getCurrentFrame() { return frames[currentFrame]; }
     
+    public boolean isActive()
+    {
+        return this.getCurrentFrame().isActive();
+    }
+    public boolean triggerEvent()
+    {
+        return this.getCurrentFrame().triggerEvent();
+    }
+    public void rearm()
+    {
+        for(Frame f: frames)
+        {
+            f.rearm();
+        }
+    }
 }

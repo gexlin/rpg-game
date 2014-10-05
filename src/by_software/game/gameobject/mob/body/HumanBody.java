@@ -31,7 +31,7 @@ public class HumanBody extends Body
     public static final int PAULDRON_RIGHT = 5;
     public static final int LEGS = 6;
     public static final int PARTS = 7;
-    private static String dir = "C:/Users/drgex_000/Documents/NetBeansProjects/RPGGame/src/by_software/res/";
+    private static String dir = "src/res/";
     
     public HumanBody(Mob owner, float scale, String path)
     {
@@ -64,15 +64,15 @@ public class HumanBody extends Body
         
         
         
-        Frame[] F_HEAD             =    frameArray(250,S_HEAD);
-        Frame[] F_BODY             =    frameArray(250,S_BODY );
-        Frame[] F_PAULDRON_LEFT    =    frameArray(250,S_PAULDRON_LEFT );
-        Frame[] F_PAULDRON_RIGHT   =    frameArray(250,S_PAULDRON_RIGHT );
-        Frame[] F_ARM_LEFT         =    frameArray(250,S_ARM_LEFT );
-        Frame[] F_ARM_RIGHT        =    frameArray(250,S_ARM_RIGHT );
-        Frame[] F_ARM_RIGHT_ATTACK =    frameArray(70,S_ARM_RIGHT_ATTACK );
-        Frame[] F_ARM_LEFT_ATTACK =    frameArray(70,S_ARM_LEFT_ATTACK );
-        Frame[] F_LEGS             =    frameArray(250,S_LEGS );
+        Frame[] F_HEAD             =    frameArray(250,S_HEAD,0,0);
+        Frame[] F_BODY             =    frameArray(250,S_BODY,0,0 );
+        Frame[] F_PAULDRON_LEFT    =    frameArray(250,S_PAULDRON_LEFT,0,0 );
+        Frame[] F_PAULDRON_RIGHT   =    frameArray(250,S_PAULDRON_RIGHT,0,0 );
+        Frame[] F_ARM_LEFT         =    frameArray(250,S_ARM_LEFT ,0,0);
+        Frame[] F_ARM_RIGHT        =    frameArray(250,S_ARM_RIGHT,0,0 );
+        Frame[] F_ARM_RIGHT_ATTACK =    frameArray(70,S_ARM_RIGHT_ATTACK, 3,5 );
+        Frame[] F_ARM_LEFT_ATTACK  =    frameArray(70,S_ARM_LEFT_ATTACK,  3,5);
+        Frame[] F_LEGS             =    frameArray(250,S_LEGS,0,0 );
         
         
         

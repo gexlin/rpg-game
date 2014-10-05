@@ -23,11 +23,12 @@ public class ArmSprite extends BodySprite
     {
         super(color, size, path, childOffset);
         this.weaponOffset = weaponOffset;
+
     }
     
     public ArmSprite(Vector3f color, Vector2f size,SpriteSheet sheet,int spriteIndex, Vector2f[] childOffsets, Vector2f weaponOffset)
     {
-        super(color, size, sheet,spriteIndex,childOffsets);
+        super(color, size, sheet,spriteIndex,childOffsets );
         this.weaponOffset = weaponOffset;
     }
     
@@ -48,5 +49,17 @@ public class ArmSprite extends BodySprite
        }
        return sprites;
     }
+    
+    @Override
+    public void scale(float scale)
+    {
+        super.scale(scale);
+        weaponOffset.scale(scale);
+//        for(Vector2f v : weaponOffset)
+//        {
+//            v.scale(scale);
+//        }
+    }
+
     
 }

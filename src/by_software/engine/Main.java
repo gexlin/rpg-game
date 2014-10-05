@@ -19,7 +19,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Main 
 {
-    public static final int FPS = 60;
+     public static final int FPS = 60;
     
     private static int displayWidth = 900;
     private static int displayHeight = 450;
@@ -29,6 +29,8 @@ public class Main
     
     public static void main(String[] args)
     {
+        System.out.println("Working Directory = " +  System.getProperty("user.dir"));
+   
         initDisplay();
         initGL();
         initGame();

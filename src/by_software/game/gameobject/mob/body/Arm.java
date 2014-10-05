@@ -83,6 +83,14 @@ public class Arm extends BodyPart
             if(weapon != null)
             {  
                 weapon.render();
+                if(animations.isActive())
+                {    
+                    weapon.active();
+                    if(animations.triggerEvent())
+                    {
+                        weapon.event();
+                    }
+                }
             }
             
             animations.render();

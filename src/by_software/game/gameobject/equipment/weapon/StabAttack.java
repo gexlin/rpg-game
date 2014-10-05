@@ -34,28 +34,28 @@ public class StabAttack extends Attack
         if(arm.getAttackDelay().isOver())
         {
             arm.setCurrentAnimation(AnimationSet.AnimationType.ATTACK_STAB_RIGHT, (int)(weapon.getAttackDelayMod()* attackDelay),true);
-            startPos = weapon.getPos();
-            endPos = new Vector2f(attacker.getDirection());
-            endPos.scale(weapon.getAttackRange());
-            
-            Vector2f.add(startPos, endPos, endPos);
-            
-            ArrayList<GameObject>  rayRes = getGame().rayCast(startPos, endPos);
-            ArrayList<Mob> enemys = new ArrayList();
-            
-            for(GameObject go : rayRes)
-            {
-                if(attacker.isEnemy(go))
-                {
-                    enemys.add((Mob)go);
-                }
-            }
-            
-            for(Mob mob : enemys)
-            {
-                mob.damage((int)weapon.getStabDamage() * attacker.getStrength());  
-                result = true;
-            }
+//            startPos = weapon.getPos();
+//            endPos = new Vector2f(attacker.getDirection());
+//            endPos.scale(weapon.getAttackRange());
+//            
+//            Vector2f.add(startPos, endPos, endPos);
+//            
+//            ArrayList<GameObject>  rayRes = getGame().rayCast(startPos, endPos);
+//            ArrayList<Mob> enemys = new ArrayList();
+//            
+//            for(GameObject go : rayRes)
+//            {
+//                if(attacker.isEnemy(go))
+//                {
+//                    enemys.add((Mob)go);
+//                }
+//            }
+//            
+//            for(Mob mob : enemys)
+//            {
+//                mob.damage((int)weapon.getStabDamage() * attacker.getStrength());  
+//                result = true;
+//            }
             arm.setAttackDelay((int)(weapon.getAttackDelayMod()* attackDelay));
             
         }

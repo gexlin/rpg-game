@@ -41,7 +41,7 @@ public class Game
         
         this.name = name;
         GameObject.initGameObjects(this);
-//        Game.setFlag(GameFlags.ATTACK_RAY_VISABLE,true);
+        Game.setFlag(GameFlags.ATTACK_RAY_VISABLE,true);
 //        Game.setFlag(GameFlags.HIT_BOX_VISABLE,true);
         
         objects = new ArrayList();
