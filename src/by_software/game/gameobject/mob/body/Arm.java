@@ -67,6 +67,14 @@ public class Arm extends BodyPart
         
         glPushMatrix();
         {
+//            float angle = 1f;
+//            angle = (float)Math.toRadians(angle);
+//            Vector2f a = new Vector2f((float)Math.sin(-angle),(float)Math.cos(angle));
+//            System.out.println(a + " angle : " + Util.angleDegrees(a));
+//          
+//            a.normalise();
+//            Util.rotateRotationVector(offsetDirection,a , offsetDirection);
+////            
             glTranslatef(offsetPos.x,offsetPos.y,0);
             //glRotated(Util.angleDegrees(Vector2f.add(direction, offsetDirection, new Vector2f())), 0f, 0f, 1f);
             glRotated(Util.angleDegrees(offsetDirection), 0f, 0f, 1f);
@@ -110,7 +118,7 @@ public class Arm extends BodyPart
         this.weapon = null;
     }
     
-    public Vector2f getWeaponOffsetRec()
+    public Vector2f getWeaponRootOffset()
     {
         return Vector2f.add(parent.getRootOffset(), weaponPos, new Vector2f()) ;// weaponPos;
     }
@@ -121,14 +129,15 @@ public class Arm extends BodyPart
     }
     
     public boolean attack(int attackIndex, Mob attacker)
-    {
+    {   
+       weapon.clearTargets();
        return weapon.attack(attackIndex,attacker,this);
     }
     
     @Override
     public Arm clone()
     {
-        
+       
         return new Arm(new Vector2f(this.pos),new Vector2f(this.offsetPos),new Vector2f(this.direction),(ArrayList<BodyPart>)null,new AnimationSet(this.animations),this.weapon,new Vector2f(this.weaponPos));
 //        this.pos = new Vector2f(this.pos);
 //        this.offsetPos = new Vector2f(this.offsetPos);
@@ -150,20 +159,30 @@ public class Arm extends BodyPart
     public Vector2f getRootWeaponOffset() 
     { 
         
-        if(parent != null)
-        {
-            return Vector2f.add
-            (
-                Vector2f.add
-                (
-                        parent.getOffsetPos(), 
-                        this.offsetPos, 
-                        new Vector2f()
-                ),
-                getWeaponPos(),
-                new Vector2f()
-            );
-        }
+        Vector2f answer = new Vector2f(); 
+            Vector2f.add(this.getRootOffset(),
+            Util.rotateRadians(Util.angleRadians(this.getOffsetDirection()), getWeaponPos()),answer);
+            
+            return Util.rotateRadians(Util.angleRadians(this.getBodyDirection()), answer);
+//                new Vector2f()
+//            return Vector2f.add
+//            (
+//                Vector2f.add
+//                (
+//                        parent.getRootOffset(), 
+//                        this.getOffsetPos(), 
+//                        new Vector2f()
+//                ),
+//                Util.rotateRadians(Util.angleRadians(this.getOffsetDirection()), getWeaponPos()),
+//                new Vector2f()
+//            );
+            
+            
+        
+        //TODO ####################################################################
+//         Vector2f offsetRotated =  Util.rotateRadians(Util.angleRadians(((Arm)equipedOn).getDirection()), ((Arm)equipedOn).getRootWeaponOffset());
+//            return Vector2f.add(wielder.getPos(),offsetRotated, offsetRotated);
+        
 //        for(BodyPart child: childParts)
 //        {
 //           if(child == part)
@@ -171,7 +190,7 @@ public class Arm extends BodyPart
 //               return Vector2f.add(parent.getChildOffsets(this), this.offsetPos, new Vector2f());
 //           }
 //        }
-       return  getWeaponPos();
+      // return  getWeaponPos();
     }
     
     public Delay getAttackDelay(){return attackDelay;}

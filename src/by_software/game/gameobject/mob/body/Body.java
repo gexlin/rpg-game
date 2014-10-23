@@ -91,13 +91,24 @@ public class Body
         {
             for(BodyPart bp: parts)
             {
-                bp.scale(scale);
+                if(bp != null)
+                {
+                    bp.scale(scale);
+                }
             }
         }
     }
     
     
-    
+    public Vector2f getDirection()
+    {
+        System.out.println(" ------ Owner Direction = "  + owner.getDirection());
+        return  owner.getDirection();
+    }
+    public Vector2f getPos()
+    {
+        return  owner.getPos();
+    }
     public void setOwner(Mob owner) {this.owner = owner;}
     
 }

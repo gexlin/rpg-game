@@ -35,9 +35,9 @@ public class Game
     
     public Game(String name)
     {
-        Mob mob = new Enemy_Trolic(new Vector2f(100f,300f),1.2f,1,2,1); 
-        mob.equipRight( new SpearOfDebugging(new Vector2f(32,32)));
-        mob.equipLeft( new SpearOfDebugging(new Vector2f(32,32)));
+        //Mob mob = new Enemy_Trolic(new Vector2f(100f,300f),1.2f,1,2,1); 
+        //mob.equipRight( new SpearOfDebugging(new Vector2f(32,32)));
+        //mob.equipLeft( new SpearOfDebugging(new Vector2f(32,32)));
         
         this.name = name;
         GameObject.initGameObjects(this);
@@ -53,10 +53,10 @@ public class Game
         
         rayTraceLine = new AttackRayCast(player.getPos(),player.getPos());
         
-        objects.add(new Enemy_Trolic(new Vector2f(200f,60f),1f,1,2,1));
-        objects.add(new Enemy_Trolic(new Vector2f(220f,200f),1f,1,2,1));
-        objects.add(new Enemy_Trolic(new Vector2f(240f,280f),1f,1,2,1));
-        objects.add(mob);
+//        objects.add(new Enemy_Trolic(new Vector2f(200f,60f),1f,1,2,1));
+//        objects.add(new Enemy_Trolic(new Vector2f(220f,200f),1f,1,2,1));
+//        //objects.add(new Enemy_Trolic(new Vector2f(240f,280f),1f,1,2,1));
+//        //objects.add(mob);
         initGame();
     }
     

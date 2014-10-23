@@ -123,12 +123,7 @@ public class Util
     
     
     
-    public static void main(String[] args)
-    {
-        Vector2f a = new Vector2f(0f,1f);
-        Vector2f b = new Vector2f(1f,0f);
-        System.out.println(Math.toDegrees(Vector2f.angle(a, b))); 
-    }
+
     public static void rotate(Vector2f vector, Vector2f angle, Vector2f dest )
     {
         float a = angleRadians(angle);
@@ -138,5 +133,33 @@ public class Util
       dest.set((float)(cos * vector.getX() - sin * vector.getY()),
                (float)(sin * vector.getX() + cos * vector.getY()));
     }
-            
+    /////////////////////////////////////////////////////
+    public static Vector2f rotateRotationVector(Vector2f vector, Vector2f angle, Vector2f dest )
+    {
+        float a = angleRadians(angle) + angleRadians(vector);
+       // float b = angleRadians(v ector);
+       // System.out.println(Math.toDegrees(angleRadians(angle)) +" "+ Math.toDegrees(angleRadians(vector)));
+        
+             
+        
+        dest.set((float)-Math.sin(a), (float)Math.cos(a));
+        dest.normalise();
+        return dest;
+      //  System.out.println(Math.toDegrees(a));
+    }
+    
+    
+        public static void main(String[] args)
+    {
+        Vector2f a = new Vector2f(-1f,1f);
+        a.normalise();
+        //System.out.println(Util.angleDegrees(a));
+        Vector2f b = new Vector2f(1f,1f);
+        b.normalise();
+        //System.out.println(Util.angleDegrees(b));
+        Vector2f c = new Vector2f(0f,0f);
+        rotateRotationVector(a, b, c);
+        System.out.println(Util.angleDegrees(c));
+        System.out.println(c ); 
+    }
 }

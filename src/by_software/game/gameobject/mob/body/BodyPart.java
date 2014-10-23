@@ -37,17 +37,17 @@ public class BodyPart
    
     protected Armour armour;
     protected BodyPart parent;
-
-    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations, Armour armour)
+    protected Body body;////////
+    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> parts, AnimationSet animations, Armour armour)
     {   
-        this(pos,offsetPos,direction,body,animations);
+        this(pos,offsetPos,direction,parts,animations);
         this.armour = armour;
    
     }
-    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> body, AnimationSet animations)
+    public BodyPart(Vector2f pos,Vector2f offsetPos,Vector2f direction, ArrayList<BodyPart> parts, AnimationSet animations)
     {   
         this(pos,offsetPos,direction,animations);
-        childParts = body;
+        childParts = parts;
     }
     
     
@@ -100,8 +100,16 @@ public class BodyPart
     {
         glPushMatrix();
         {
+                        float angle = 1f;
+//            angle = (float)Math.toRadians(angle);
+//            Vector2f a = new Vector2f((float)Math.sin(-angle),(float)Math.cos(angle));
+//            System.out.println(a + " angle : " + Util.angleDegrees(a));
+//          
+//            a.normalise();
+//            Util.rotateRotationVector(offsetDirection,a , offsetDirection);
+////            
             glTranslatef(offsetPos.x,offsetPos.y,0);
-            glRotated(Util.angleDegrees(Vector2f.add(direction, offsetDirection, new Vector2f())), 0f, 0f, 1f);
+            glRotated(Util.angleDegrees(offsetDirection), 0f, 0f, 1f);
             
             if(childParts != null)
             {    
@@ -128,7 +136,15 @@ public class BodyPart
     public AnimationType getCurrentAnimationType(){return animations.getCurrentAnimationType();}
     public Animation getCurrentAnimation(){return animations.getCurrentAnimation();}
     public Vector2f getPos()                     { return pos; }
-    public Vector2f getOffsetPos()               { return offsetPos; }
+    public Vector2f getOffsetPos()               
+    { 
+        if(parent != null)
+        {
+           return Util.rotateRadians(Util.angleRadians(parent.getOffsetDirection()), offsetPos);
+                
+        }    
+        return offsetPos; 
+    }
     public Vector2f getDirection()               { return direction;}
     public Vector2f getOffsetDirection()         { return offsetDirection; }
     public ArrayList<BodyPart> getChildParts()   { return childParts; }
@@ -141,18 +157,27 @@ public class BodyPart
         
         if(parent != null)
         {
-            return Vector2f.add(parent.getOffsetPos(), this.offsetPos, new Vector2f());
+//            Util.rotateRadians(Util.angleRadians(parent.getOffsetDirection()), this.offsetPos);
+            return Vector2f.add(parent.getRootOffset(), Util.rotateRadians(Util.angleRadians(parent.getDirection()), this.offsetPos), new Vector2f());
         }
-//        for(BodyPart child: childParts)
-//        {
-//           if(child == part)
-//           {
-//               return Vector2f.add(parent.getChildOffsets(this), this.offsetPos, new Vector2f());
-//           }
-//        }
+
       return new Vector2f(0,0);
     }
-
+    
+    public Vector2f getRootDirectionOffset() 
+    { 
+        
+        if(parent != null)
+        {
+            return Util.rotateRotationVector(parent.getRootDirectionOffset(),this.offsetDirection,  new Vector2f() );
+            //Vector2f.add(parent.getOffsetPos(), this.offsetPos, new Vector2f());
+        }
+        else
+        {
+            return body.getDirection();
+        }
+    }
+    
     public void setParent(BodyPart parent){ this.parent = parent;}
     public void setChildOffset(int index, float x, float y) { childOffsets.get(index).translate(x,y); }
     
@@ -179,6 +204,24 @@ public class BodyPart
         animations.scale(scale);
     }
     
+    public void makeHead(Body body)
+    {
+        this.body = body;
+    }
     
+    protected Vector2f relitivePos()
+    {
+        return null;
+    }
     
+    protected Vector2f getBodyDirection()
+    {
+        if(parent != null)
+        {
+            return parent.getBodyDirection();
+        }
+            
+        return body.getDirection();
+        
+    }
 }
