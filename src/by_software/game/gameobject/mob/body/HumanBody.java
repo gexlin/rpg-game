@@ -49,15 +49,15 @@ public class HumanBody extends Body
         Sprite[] S_PAULDRON_LEFT    = {new Sprite( new Vector2f(27,40),path + "poldren-left.png" )};
         Sprite[] S_PAULDRON_RIGHT   = {new Sprite( new Vector2f(27,40),path + "poldren-right.png")};
         
-        Vector2f[] leftWeaponOffset   = new Vector2f[]{new Vector2f(9,29),new Vector2f(9,27),new Vector2f(9,24),new Vector2f(9,23),new Vector2f(9,22),new Vector2f(9,33),new Vector2f(9,60)};
+        Vector2f[] leftWeaponOffset   = new Vector2f[]{new Vector2f(9,29),new Vector2f(-9,27),new Vector2f(-9,24),new Vector2f(-9,23),new Vector2f(-9,22),new Vector2f(-9,33),new Vector2f(9,60)};
         //Sprite[] S_ARM_LEFT         = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-left.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(0,0)) }; 
-        ArmSprite[] S_ARM_LEFT        = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-left.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(9,30)) };
+        ArmSprite[] S_ARM_LEFT        = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-left.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(0,30)) };
         ArmSprite[] S_ARM_LEFT_ATTACK = ArmSprite.makeSprites( new Vector2f(48,80),SS_LEFT_ARMS, new Vector2f[][]{(Vector2f[]) null}, leftWeaponOffset);//
         
         
-        Vector2f[] rightWeaponOffset   = new Vector2f[]{new Vector2f(-9,29),new Vector2f(-9,27),new Vector2f(-9,24),new Vector2f(-9,23),new Vector2f(-9,22),new Vector2f(-9,33),new Vector2f(-9,60)};
+        Vector2f[] rightWeaponOffset   = new Vector2f[]{new Vector2f(7,29),new Vector2f(7,27),new Vector2f(7,24),new Vector2f(7,23),new Vector2f(7,22),new Vector2f(7,33),new Vector2f(7,60)};
                 
-        ArmSprite[] S_ARM_RIGHT        = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-right.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(-9,30)) };
+        ArmSprite[] S_ARM_RIGHT        = {new ArmSprite(new Vector3f(1,1,1), new Vector2f(48,80),path + "arm-right.png",new Vector2f[] {new Vector2f(64,64)},  new Vector2f(1,100)) };
         ArmSprite[] S_ARM_RIGHT_ATTACK = ArmSprite.makeSprites( new Vector2f(48,80),SS_RIGHT_ARMS, new Vector2f[][]{(Vector2f[]) null}, rightWeaponOffset);//
         
         Sprite[] S_LEGS             = Sprite.makeSprites(new Vector2f(90,70), SS_LEGS);
@@ -111,14 +111,14 @@ public class HumanBody extends Body
 //        BodyPart PLAYER_PAULDRON_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(28,00),new Vector2f(.7f,.7f),AS_PAULDRON_RIGHT);
 //        BodyPart PLAYER_LEGS = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AS_LEGS);
 //        
-        BodyPart PLAYER_HEAD = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AS_HEAD);
+        BodyPart PLAYER_HEAD = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0f,1f),AS_HEAD);
         BodyPart PLAYER_CHEST = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AS_BODY);
         
-        Arm PLAYER_ARM_LEFT = new Arm(new Vector2f(0,0), new Vector2f(-44,0),new Vector2f(0,1),AS_ARM_LEFT);
-        Arm PLAYER_ARM_RIGHT = new Arm(new Vector2f(0,0), new Vector2f(44,0),new Vector2f(0,1),AS_ARM_RIGHT);
+        Arm PLAYER_ARM_LEFT = new Arm(new Vector2f(0,0), new Vector2f(-24,0),new Vector2f(0,1),AS_ARM_LEFT);
+        Arm PLAYER_ARM_RIGHT = new Arm(new Vector2f(0,0), new Vector2f(24,0),new Vector2f(0,1),AS_ARM_RIGHT);
         
         BodyPart PLAYER_PAULDRON_LEFT = new BodyPart(new Vector2f(0,0), new Vector2f(-28,00),new Vector2f(0,1),AS_PAULDRON_LEFT);
-        BodyPart PLAYER_PAULDRON_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(28,00),new Vector2f(.7f,.7f),AS_PAULDRON_RIGHT);
+        BodyPart PLAYER_PAULDRON_RIGHT = new BodyPart(new Vector2f(0,0), new Vector2f(28,00),new Vector2f(0,1),AS_PAULDRON_RIGHT);
         BodyPart PLAYER_LEGS = new BodyPart(new Vector2f(0,0), new Vector2f(0,0),new Vector2f(0,1),AS_LEGS);
          
         PLAYER_HEAD.makeHead(this);
@@ -140,12 +140,12 @@ public class HumanBody extends Body
 //        this.equipLeft(owner.getDefaultWeapon());
 //        this.equipRight(owner.getDefaultWeapon());
     
-        this.parts[HEAD].addChildPart(PLAYER_CHEST);
-        this.parts[CHEST].addChildPart(PLAYER_LEGS);
+        //this.parts[HEAD].addChildPart(PLAYER_CHEST);
+       // this.parts[CHEST].addChildPart(PLAYER_LEGS);
         //this.parts[HEAD].addChildPart(PLAYER_PAULDRON_LEFT);
         //this.parts[HEAD].addChildPart(PLAYER_PAULDRON_RIGHT);
-        this.parts[CHEST].addChildPart(PLAYER_ARM_RIGHT);
-        this.parts[CHEST].addChildPart(PLAYER_ARM_LEFT);
+        this.parts[HEAD].addChildPart(PLAYER_ARM_RIGHT);
+        //this.parts[HEAD].addChildPart(PLAYER_ARM_LEFT);
         this.equipLeft(owner.getDefaultWeapon());
         this.equipRight(owner.getDefaultWeapon());
         

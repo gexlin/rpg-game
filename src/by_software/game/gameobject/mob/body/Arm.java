@@ -117,15 +117,14 @@ public class Arm extends BodyPart
     {
         this.weapon = null;
     }
-    
-    public Vector2f getWeaponRootOffset()
-    {
-        return Vector2f.add(parent.getRootOffset(), weaponPos, new Vector2f()) ;// weaponPos;
-    }
+//    #####           getRootWeaponOffset
+//    public Vector2f getWeaponRootOffset()
+//    {
+//        return Vector2f.add(parent.getRootOffset(), weaponPos, new Vector2f()) ;// weaponPos;
+//    }
     public Vector2f getWeaponOffset()
     {
-        return getWeaponPos();// weaponPos;
-        
+        return getWeaponPos();// weaponPos; 
     }
     
     public boolean attack(int attackIndex, Mob attacker)
@@ -158,12 +157,12 @@ public class Arm extends BodyPart
     
     public Vector2f getRootWeaponOffset() 
     { 
-        
+        //System.out.println("Arm offsetpos " + this.getOffsetPos() + " " + parent.getOffsetPos() + "  " + Vector2f.add(this.getOffsetPos(), parent.getOffsetPos(), new Vector2f()));
         Vector2f answer = new Vector2f(); 
-            Vector2f.add(this.getRootOffset(),
-            Util.rotateRadians(Util.angleRadians(this.getOffsetDirection()), getWeaponPos()),answer);
-            
-            return Util.rotateRadians(Util.angleRadians(this.getBodyDirection()), answer);
+        Vector2f.add(this.getRootOffset(),
+        Util.rotateRadians(Util.angleRadians(this.getOffsetDirection()), getWeaponPos()),answer);
+
+        return Util.rotateRadians(Util.angleRadians(this.getRootDirectionOffset()), answer);
 //                new Vector2f()
 //            return Vector2f.add
 //            (

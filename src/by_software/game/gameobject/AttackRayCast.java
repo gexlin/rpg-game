@@ -43,7 +43,7 @@ public class AttackRayCast
     }
     public void set(Vector2f startPos, Vector2f endPos)
     {
-        System.out.print( startPos + "  " + endPos);
+        System.out.println("Start Pos" +  startPos + "  " + endPos);
         this.startPos = startPos;
         this.endPos = endPos;
     }

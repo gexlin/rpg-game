@@ -102,7 +102,7 @@ public class Body
     
     public Vector2f getDirection()
     {
-        System.out.println(" ------ Owner Direction = "  + owner.getDirection());
+        //System.out.println(" ------ Owner Direction = "  + owner.getDirection());
         return  owner.getDirection();
     }
     public Vector2f getPos()

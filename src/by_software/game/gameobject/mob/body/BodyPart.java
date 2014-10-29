@@ -77,8 +77,8 @@ public class BodyPart
     {
         this.pos = pos;
         this.offsetPos = offsetPos;
-        this.direction = direction;
-        this.offsetDirection = new Vector2f(0,1);
+        //this.direction = direction;
+        this.offsetDirection = direction;//new Vector2f(0,1);//TODO
         this.animations = null;
         childParts = null;
     }
@@ -100,14 +100,15 @@ public class BodyPart
     {
         glPushMatrix();
         {
-                        float angle = 1f;
-//            angle = (float)Math.toRadians(angle);
-//            Vector2f a = new Vector2f((float)Math.sin(-angle),(float)Math.cos(angle));
-//            System.out.println(a + " angle : " + Util.angleDegrees(a));
-//          
-//            a.normalise();
-//            Util.rotateRotationVector(offsetDirection,a , offsetDirection);
-////            
+            
+             float angle = 1f;
+            angle = (float)Math.toRadians(angle);
+            Vector2f a = new Vector2f((float)Math.sin(-angle),(float)Math.cos(angle));
+            System.out.println(a + " angle : " + Util.angleDegrees(a));
+          
+            a.normalise();
+            Util.rotateRotationVector(offsetDirection,a , offsetDirection);
+            
             glTranslatef(offsetPos.x,offsetPos.y,0);
             glRotated(Util.angleDegrees(offsetDirection), 0f, 0f, 1f);
             
@@ -142,8 +143,12 @@ public class BodyPart
         {
            return Util.rotateRadians(Util.angleRadians(parent.getOffsetDirection()), offsetPos);
                 
-        }    
-        return offsetPos; 
+        } 
+        else
+        {
+            return Util.rotateRadians(Util.angleRadians(this.getRootDirectionOffset()), offsetPos);
+        } 
+        //return offsetPos; 
     }
     public Vector2f getDirection()               { return direction;}
     public Vector2f getOffsetDirection()         { return offsetDirection; }
@@ -158,10 +163,10 @@ public class BodyPart
         if(parent != null)
         {
 //            Util.rotateRadians(Util.angleRadians(parent.getOffsetDirection()), this.offsetPos);
-            return Vector2f.add(parent.getRootOffset(), Util.rotateRadians(Util.angleRadians(parent.getDirection()), this.offsetPos), new Vector2f());
+            return Vector2f.add(parent.getRootOffset(),  getOffsetPos(), new Vector2f());
         }
 
-      return new Vector2f(0,0);
+      return getOffsetPos();//new Vector2f(0,0);
     }
     
     public Vector2f getRootDirectionOffset() 
@@ -174,7 +179,7 @@ public class BodyPart
         }
         else
         {
-            return body.getDirection();
+            return Util.rotateRotationVector(body.getDirection(),this.offsetDirection,new Vector2f());
         }
     }
     
@@ -223,5 +228,9 @@ public class BodyPart
             
         return body.getDirection();
         
+    }
+    protected void rotate(float angleRands)
+    {
+      offsetDirection = Util.rotateRadians(angleRands,this.offsetDirection);
     }
 }
